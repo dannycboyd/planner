@@ -1,1 +1,176 @@
-/* You can add global styles to this file, and also import other style files */
+* {-webkit-padding-start: 0px;}
+
+@font-face {
+  font-family: 'prataregular';
+  src: url('assets/prata/prata-regular-webfont.woff2') format('woff2'),
+       url('assets/prata/prata-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+html, body {
+  font-family: 'prataregular';
+  height: 100%;
+}
+
+table {
+  width: 100%;
+}
+
+.columns__container {
+  display: flex;
+  height: 90%;
+}
+
+.columns__column {
+  flex-grow: 1;
+  flex-basis: 33%;
+  flex-direction: row;
+  margin: 5px;
+  padding: 0;
+  border: solid 1px #000;
+  background: #F8F8F8;
+  min-height: 720px;
+}
+
+.columns__header {
+  text-align: center;
+  display: block;
+  margin: 0 0 1rem 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.columns__header h1 {
+  font-size: 1.25rem;
+  margin: 0;
+  padding: 0.67rem 0 1rem;
+}
+
+.columns__header.with-button-group h1 {
+  padding: 0.67rem 0 0;
+}
+
+.columns__header.with-button-group .button-group {
+  height: 1rem;
+}
+
+.flex-button {
+  margin: 0;
+  background: rgba(0,0,0,0);
+  border: solid 1px rgba(0,0,0,0.257)
+}
+
+.flex-button.no-bottom {
+  border-bottom: none;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.flex-fill {
+  flex-grow: 1
+}
+
+.flex__column-2rem {
+  flex-basis: 2rem;
+}
+
+.flex__column-4rem {
+  flex-basis: 4rem;
+}
+
+/* calendar */
+.cal__month_row {
+  /* flex-direction: row; */
+  display: flex;
+}
+
+.cal__month_col {
+  flex-direction: row;
+  flex-grow: 1;
+  flex-basis: 2rem;
+  padding: 5px;
+  margin: 2.5px 3px 2.5px 3px;
+  border: solid 1px #000;
+  border-radius: 2px;
+  height: 1rem;
+  /* background-color: #FF4D62; */
+  text-align: right;
+}
+
+table.cal_table {
+  border-collapse: separate;
+  border-spacing: 5px;
+}
+
+table.cal_table > tr > th {
+  width: 14.29%;
+}
+
+.cal_table-cell {
+  padding: 5px;
+  margin: 2.5px 3px 2.5px 3px;
+  border: solid 1px #000;
+  border-radius: 2px;
+}
+
+.cal_table-cell.month {
+  height: 2rem;
+  /* background-color: #FF4D62; */
+  text-align: center;
+}
+
+.cal_table-cell.week { /* TODO: find a good layout for this? */
+  height: 10rem;
+  text-align: center;
+}
+
+/** BUTTONS **/
+.button-group {
+  display: flex;
+}
+
+.button-group > button {
+  flex-grow: 1;
+  margin: 0;
+  border: 1px solid rgba(0, 0, 0, 0.257);
+  background-color: rgba(0, 0, 0, 0);
+  border-left: none;
+  border-bottom-left-radius: none;
+  border-bottom-right-radius: none;
+}
+
+.button-group > button:first-child {
+  border-left: 1px solid rgba(0, 0, 0, 0.257);
+  border-bottom-left-radius: 5px;
+}
+
+.button-group > button:last-child {
+  border-bottom-right-radius: 5px;
+}
+
+.align-left {
+  text-align: left;
+}
+
+/*
+  Backgrounds
+*/
+.bg-orange {
+  background: #fcb603;
+}
+
+.bg-red {
+  background: #FF4D62;
+}
+
+.bg-offwhite {
+  background: #F8F8F8;
+}
+
+.bg-white {
+  background: #FFF;
+}

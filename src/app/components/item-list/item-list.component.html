@@ -1,0 +1,10 @@
+<div class="columns__header bg-orange">
+  <h1>Items</h1>
+</div>
+<div class="columns__content">
+  <ul>
+    <item-li *ngFor="let item of items"
+      [item]="item">
+    </item-li>
+  </ul>  
+</div>

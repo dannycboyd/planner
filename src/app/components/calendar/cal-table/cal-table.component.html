@@ -1,0 +1,80 @@
+<div class="cal_year" *ngIf="state === calView.year">
+  <div class="calTable__title">
+    <h3>
+      Yearly view
+    </h3>
+  </div>
+</div>
+
+<div class="cal_month" *ngIf="state === calView.month">
+  <!-- <div class="calTable__title">
+    <h3>
+      Monthly view
+    </h3>
+  </div> -->
+
+  <!-- <div class="cal__month_row"
+    *ngFor="let row of monthRows">
+    <div class="cal__month_col"
+      *ngFor="let col of row"
+      (click)="selectDay(col)">
+        {{col}}
+    </div>
+  </div> -->
+
+  <table class="cal_table">
+    <tr>
+      <th>Sun</th>
+      <th>Mon</th>
+      <th>Tues</th>
+      <th>Wed</th>
+      <th>Thur</th>
+      <th>Fri</th>
+      <th>Sat</th>
+    </tr>
+    <tr *ngFor="let row of monthRows">
+      <td class="cal_table-cell month"
+      *ngFor="let col of row"
+      (click)="selectDay(col)">
+        {{col}}
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="cal_week" *ngIf="state === calView.week">
+  <!-- maybe this should be its own template -->
+  <table>
+    <tr>
+      <th>Sun</th>
+      <th>Mon</th>
+      <th>Tues</th>
+      <th>Wed</th>
+      <th>Thur</th>
+      <th>Fri</th>
+      <th>Sat</th>
+    </tr>
+    <tr>
+      <td *ngFor="let item of weekDays" class="cal_table-cell week">
+        {{item.day}}
+      </td>
+    </tr>
+  </table>
+  <!-- <div class="cal__month_row">
+    <div class="cal__month_col align-left">Sun</div>
+    <div class="cal__month_col align-left">Mon</div>
+    <div class="cal__month_col align-left">Tue</div>
+    <div class="cal__month_col align-left">Wed</div>
+    <div class="cal__month_col align-left">Thurs</div>
+    <div class="cal__month_col align-left">Fri</div>
+    <div class="cal__month_col align-left">Sat</div>
+  </div>
+  <div class="cal__month_row">
+    <div class="cal__month_col"
+      *ngFor="let item of weekDays"
+      (click)="selectDate(item.date)">
+      {{item.day}}
+    </div>
+  </div> -->
+  
+</div>
