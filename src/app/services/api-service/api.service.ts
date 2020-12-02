@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { PlanItem } from 'src/app/models';
+import { ItemsResponse, PlanItem } from 'src/app/models';
 
 // options: {
 //   headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -30,8 +30,13 @@ export class ApiService {
     return this.http.get(this.assembleUrl(endpoint), { headers: { Accept: 'application/json' }});
   }
 
-  getAllItems(): Observable<Array<PlanItem>> {
-    const reqUrl = this.assembleUrl('item/all')
-    return this.http.get<Array<PlanItem>>(reqUrl)
+  getAllItems(): Observable<ItemsResponse> {
+    const reqUrl = this.assembleUrl('items/get')
+    return this.http.get<ItemsResponse>(reqUrl)
+  }
+
+  createNewItem(newItem: PlanItem, refs: Array<any> = []): Observable<PlanItem> {
+    const reqUrl = this.assembleUrl('item');
+    return this.http.post<PlanItem>(reqUrl, { item: newItem, refs });
   }
 }
