@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from './services';
+import { DataService } from './services';
 import { PlanItem } from './models';
 
 @Component({
@@ -10,12 +10,12 @@ import { PlanItem } from './models';
 export class AppComponent implements OnInit {
   title = 'planner';
   items: Array<PlanItem> = [];
-  constructor(private apiService: ApiService) {}
+  constructor(private dataService: DataService) {}
 
   ngOnInit() {
-    this.apiService.getAllItems().subscribe(items => {
-      // console.log(items);
+    this.dataService.items.subscribe((items: Array<PlanItem>) => {
       this.items = items;
-    });
+    })
+    this.dataService.getAllItems();
   }
 }

@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 
 import { Components } from './components';
 import { AppServices } from './services';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,8 +15,9 @@ import { AppServices } from './services';
     ...Components
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [AppServices],
