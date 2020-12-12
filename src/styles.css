@@ -12,6 +12,7 @@
 html, body {
   font-family: 'prataregular';
   height: 100%;
+  margin: 0;
 }
 
 table {
@@ -20,19 +21,27 @@ table {
 
 .columns__container {
   display: flex;
-  height: 90%;
+  height: 100%;
 }
 
 .columns__column {
   flex-grow: 1;
   flex-basis: 33%;
-  flex-direction: row;
+  flex-direction: column;
   margin: 5px;
   padding: 0;
   border: solid 1px #000;
   background: #F8F8F8;
-  min-height: 720px;
+  /* min-height: 720px; */
+  min-height: 0;
+
+  display: flex;
 }
+
+/* .columns__card {
+  width: 100%;
+  flex-direction: column;
+} */
 
 .columns__header {
   text-align: center;
@@ -54,6 +63,11 @@ table {
 
 .columns__header.with-button-group .button-group {
   height: 1rem;
+}
+
+.columns__content {
+  overflow: auto;
+  min-height: 0;
 }
 
 .flex-button {
@@ -173,4 +187,16 @@ table.cal_table > tr > th {
 
 .bg-white {
   background: #FFF;
+}
+
+ul {
+  list-style-type: none;
+}
+
+
+/* .items_list {
+  overflow: auto;
+} */
+.items_list li {
+  margin: 1rem;
 }
