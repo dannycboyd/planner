@@ -13,6 +13,7 @@ html, body {
   font-family: 'prataregular';
   height: 100%;
   margin: 0;
+  background-color:rgb(221, 221, 221)
 }
 
 table {
@@ -24,11 +25,15 @@ table {
   height: 100%;
 }
 
+.columns__container .columns__column:first-child {
+  margin: 5px;
+}
+
 .columns__column {
   flex-grow: 1;
   flex-basis: 33%;
   flex-direction: column;
-  margin: 5px;
+  margin: 5px 5px 5px 0;
   padding: 0;
   border: solid 1px #000;
   background: #F8F8F8;
@@ -46,7 +51,7 @@ table {
 .columns__header {
   text-align: center;
   display: block;
-  margin: 0 0 1rem 0;
+  /* margin: 0 0 1rem 0; */
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
@@ -68,6 +73,7 @@ table {
 .columns__content {
   overflow: auto;
   min-height: 0;
+  padding: .25rem;
 }
 
 .flex-button {
