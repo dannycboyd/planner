@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 
 import { Components } from './components';
 import { AppServices } from './services';
+import { AppTransforms } from './core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({

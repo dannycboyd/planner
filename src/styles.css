@@ -11,6 +11,7 @@
 
 html, body {
   font-family: 'prataregular';
+  font-size: 12pt;
   height: 100%;
   margin: 0;
   background-color:rgb(221, 221, 221)
@@ -172,6 +173,39 @@ table.cal_table > tr > th {
   border-bottom-right-radius: 5px;
 }
 
+.check_group {
+  display: flex;
+  width: 100%;
+}
+
+label {
+  font-size: 10pt;
+  color: rgb(53, 53, 53);
+  font-weight: bold;
+  padding-left: .5rem;
+}
+
+.check_group div {
+  flex-grow: 1;
+}
+
+.input_group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.input_group>textarea {
+  align-self: center;
+  width: calc(100% - .25rem);
+  min-height: 5rem;
+}
+
+.input_group>input[type=text] {
+  height: 1.5rem;
+  font-weight: 11pt;
+}
+
 .align-left {
   text-align: left;
 }
@@ -205,4 +239,14 @@ ul {
 } */
 .items_list li {
   margin: 1rem;
+}
+
+.item {
+  border-bottom: solid 1px rgba(0,0,0,0.257)
+}
+
+/** Columns stuff */
+
+.columns.columns-2 {
+  column-count: 2;
 }

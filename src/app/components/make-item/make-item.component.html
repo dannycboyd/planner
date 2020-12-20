@@ -1,38 +1,54 @@
 <div class="columns__header bg-orange">
-    <h1>Items</h1>
+  <h1>Items</h1>
 </div>
 <div class="columns__content">
-    <form [formGroup]="itemForm">
-        <div class="input_group">
-            <div class="input_title">
-                <label for="item_title">Title</label>
-            </div>
-            <input id="item_title" type="text" formControlName="title">
-        </div>
+  <form [formGroup]="itemForm">
+    <div class="input_group">
+      <div class="input_title">
+        <label for="item_title">Title</label>
+      </div>
+      <input id="item_title" type="text" formControlName="title">
+    </div>
 
-        <div class="input_group">
-            <div class="input_title">
-                <label for="item_note">Note</label>
-            </div>
-            <textarea id="item_note" formControlName="note"></textarea>
-        </div>
+    <div class="input_group">
+      <div class="input_title">
+        <label for="item_note">Note</label>
+      </div>
+      <textarea id="item_note" formControlName="note"></textarea>
+    </div>
 
-        <ul class="check_list">
-            <li>
-                <input id="item_cal" type="checkbox" formControlName="cal">
-                <label for="item_cal">Cal</label>
-            </li>
-            <li>
-                
-                <input id="item_journal" type="checkbox" formControlName="journal">
-                <label for="item_journal">Journal</label>
-            </li>
-            <li>
-                <input id="item_todo" type="checkbox" formControlName="todo">
-                <label for="item_todo">Todo</label>
-            </li>
-        </ul>
-    </form>
-    <button (click)="save_item()">Save</button>
+    <div class="columns columns-2">
+      <div class="input_group">
+        <div class="input_title">
+          <label for="item_start_d">Start Date</label>
+        </div>
+        <input id="item_start_d" type="text" formControlName="start_d" (blur)="parseDate('start_d')">
+      </div>
+
+      <div class="input_group">
+        <div class="input_title">
+          <label for="item_end_d">End Date</label>
+        </div>
+        <!-- Would be nice to have this prettyprint the date -->
+        <input id="item_end_d" type="text" formControlName="end_d" (blur)="parseDate('end_d')">
+      </div>
+    </div>
+
+    <ul class="check_group">
+      <div>
+        <input id="item_cal" type="checkbox" formControlName="cal">
+        <label for="item_cal">Cal</label>
+      </div>
+      <div>
+
+        <input id="item_journal" type="checkbox" formControlName="journal">
+        <label for="item_journal">Journal</label>
+      </div>
+      <div>
+        <input id="item_todo" type="checkbox" formControlName="todo">
+        <label for="item_todo">Todo</label>
+      </div>
+    </ul>
+  </form>
+  <button (click)="save_item()">Save</button>
 </div>
-  

@@ -1,4 +1,11 @@
 export * from './interfaces/enums';
+export * from './transforms/date.transform';
+
+import { DateTransformer } from './transforms/date.transform';
+
+export let AppTransforms = [
+  DateTransformer
+]
 
 // import { calView } from './interfaces/enums';
 
