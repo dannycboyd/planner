@@ -9,6 +9,9 @@ import { PlanItem } from './models';
 })
 export class AppComponent implements OnInit {
   title = 'planner';
+  private _selected = "Selected Item";
+  selectedTitle = this._selected;
+  selectedItem: PlanItem;
   items: Array<PlanItem> = [];
   constructor(private dataService: DataService) {}
 
@@ -17,5 +20,19 @@ export class AppComponent implements OnInit {
       this.items = items;
     })
     this.dataService.getAllItems();
+  }
+
+  selectItem(item: PlanItem) {
+    this.selectedTitle = item.title;
+    this.selectedItem = item;
+  }
+
+  deselectItem() {
+    this.selectedTitle = this._selected;
+    this.selectedItem = null;
+  }
+
+  deleteItem(item) {
+    this.dataService.deleteItem(item);
   }
 }

@@ -45,4 +45,13 @@ export class DataService {
             })
 
     }
+
+    deleteItem(item: PlanItem) {
+        this.apiService.deleteItem(item.id)
+            .subscribe(res => {
+                console.log(res);
+                const items = this.items.value.filter(i => i.id !== item.id)
+                this.items.next(items);
+            })
+    }
 }

@@ -1,7 +1,11 @@
-<div class="columns__header bg-orange">
+<!-- <div class="columns__header bg-orange">
   <h1>Items</h1>
 </div>
-<div class="columns__content">
+<div class="columns__content"> -->
+<div *ngIf="!showCreate">
+  <button (click)="showCreate = true">Create new Item</button>
+</div>
+<div *ngIf="showCreate">
   <form [formGroup]="itemForm">
     <div class="input_group">
       <div class="input_title">
@@ -51,4 +55,6 @@
     </ul>
   </form>
   <button (click)="save_item()">Save</button>
+  <button (click)="showCreate = false">Cancel</button>
+<!-- </div> -->
 </div>

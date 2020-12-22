@@ -187,6 +187,7 @@ label {
 
 .check_group div {
   flex-grow: 1;
+  text-align: center;
 }
 
 .input_group {

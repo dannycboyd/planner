@@ -1,9 +1,14 @@
 <div class="columns__container">
-  <item-list class="columns__column bg-offwhite"
-    [items]="items">
-  </item-list>
   <cal-column class="columns__column"></cal-column>
-  <make-item class="columns__column"></make-item>
+  <item-list class="columns__column bg-offwhite" [items]="items" (itemSelected)="selectItem($event)" (itemDeleted)="deleteItem($event)"></item-list>
+  <div class="columns__column">
+    <div class="columns__header bg-orange"><h1>{{selectedTitle}}</h1></div>
+    <div class="columns__content">
+      <p *ngIf="selectedItem">
+      {{selectedItem.note}}
+      </p>
+    </div>
+  </div>
   <!-- Look into a fixed header with 100% content length with top margin -->
 </div>
 

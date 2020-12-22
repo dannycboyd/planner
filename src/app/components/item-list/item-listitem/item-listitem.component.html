@@ -1,5 +1,6 @@
 <div class="item">
   <h3>{{item.title}}</h3>
+  <button (click)="deleteItem()">X</button>
   <span *ngIf="item.start_d">{{item.start_d}}</span>
   <p>{{item.note}}</p>
 </div>

@@ -10,6 +10,7 @@ import { DataService } from 'src/app/services';
 })
 export class MakeItemComponent implements OnInit, OnDestroy {
   itemForm: FormGroup;
+  showCreate = false;
   private $destroy = new Subject();
   constructor(private _fb: FormBuilder, private dataService: DataService) {
 
@@ -47,6 +48,8 @@ export class MakeItemComponent implements OnInit, OnDestroy {
     console.log("saveing: ", item);
 
     this.dataService.createNewItem(item);
+    this.showCreate = false;
+    this.itemForm.reset();
   }
 
   parseDate(formField: string) {

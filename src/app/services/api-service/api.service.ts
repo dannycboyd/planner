@@ -39,4 +39,9 @@ export class ApiService {
     const reqUrl = this.assembleUrl('item');
     return this.http.post<PlanItem>(reqUrl, { item: newItem, refs });
   }
+
+  deleteItem(itemId: Number): Observable<any> {
+    const reqUrl = this.assembleUrl(`item/${itemId}`);
+    return this.http.delete<any>(reqUrl);
+  }
 }
