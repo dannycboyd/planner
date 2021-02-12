@@ -23,7 +23,7 @@
   </div> -->
 
   <table class="cal_table">
-    <tr>
+    <tr class="cal_th_7">
       <th>Sun</th>
       <th>Mon</th>
       <th>Tues</th>
@@ -33,9 +33,7 @@
       <th>Sat</th>
     </tr>
     <tr *ngFor="let row of monthRows">
-      <td class="cal_table-cell month"
-      *ngFor="let col of row"
-      (click)="selectDay(col)">
+      <td class="cal_table-cell month" *ngFor="let col of row" (click)="selectDay(col)">
         {{col}}
       </td>
     </tr>
@@ -45,7 +43,7 @@
 <div class="cal_week" *ngIf="state === calView.week">
   <!-- maybe this should be its own template -->
   <table>
-    <tr>
+    <tr class="cal_th_7">
       <th>Sun</th>
       <th>Mon</th>
       <th>Tues</th>
@@ -76,5 +74,5 @@
       {{item.day}}
     </div>
   </div> -->
-  
+
 </div>

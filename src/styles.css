@@ -38,21 +38,16 @@ table {
   padding: 0;
   border: solid 1px #000;
   background: #F8F8F8;
-  /* min-height: 720px; */
   min-height: 0;
 
   display: flex;
 }
 
-/* .columns__card {
-  width: 100%;
-  flex-direction: column;
-} */
-
 .columns__header {
+  box-sizing: border-box;
+  border-bottom: 1px solid black;
   text-align: center;
   display: block;
-  /* margin: 0 0 1rem 0; */
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
@@ -75,16 +70,6 @@ table {
   overflow: auto;
   min-height: 0;
   padding: .25rem;
-}
-
-.flex-button {
-  margin: 0;
-  background: rgba(0,0,0,0);
-  border: solid 1px rgba(0,0,0,0.257)
-}
-
-.flex-button.no-bottom {
-  border-bottom: none;
 }
 
 .flex-container {
@@ -127,8 +112,10 @@ table.cal_table {
   border-spacing: 5px;
 }
 
-table.cal_table > tr > th {
-  width: 14.29%;
+/* .cal_table >  */
+
+table.cal_table>tbody>tr.cal_th_7>th {
+  width: 14.29%; /* 1/7 */
 }
 
 .cal_table-cell {
@@ -144,33 +131,73 @@ table.cal_table > tr > th {
   text-align: center;
 }
 
+.cal_table-cell.today {
+  /* border-color: #fcb603; */
+  /* border-width: 2px; */
+  background-color: #fcb603;
+  color: white;
+}
+
 .cal_table-cell.week { /* TODO: find a good layout for this? */
   height: 10rem;
   text-align: center;
 }
 
 /** BUTTONS **/
+button {
+  text-align: center;
+}
+
 .button-group {
   display: flex;
+  /* border: 1px solid black; */
+}
+
+.round-bottom {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.button-group.no-sides {
+  border-right: none;
+  border-left: none;
 }
 
 .button-group > button {
   flex-grow: 1;
   margin: 0;
-  border: 1px solid rgba(0, 0, 0, 0.257);
+  border: none;
+  /* border: 1px solid rgba(0, 0, 0, 0.644); */
+  border-left: 1px solid black;
   background-color: rgba(0, 0, 0, 0);
-  border-left: none;
-  border-bottom-left-radius: none;
-  border-bottom-right-radius: none;
+  /* border-left: none; */
 }
 
 .button-group > button:first-child {
-  border-left: 1px solid rgba(0, 0, 0, 0.257);
+  /* border-right: 1px solid rgba(0, 0, 0, 0.644); */
+  border: none;
   border-bottom-left-radius: 5px;
 }
 
 .button-group > button:last-child {
   border-bottom-right-radius: 5px;
+}
+
+.flex-button {
+  margin: 0;
+  background: rgba(0,0,0,0);
+  /* border: solid 1px rgba(0,0,0,0.644); */
+  padding: 0;
+  font-size: 15pt;
+  border: none;
+}
+
+.flex-button.border-left {
+  border-left: solid 1px rgba(0,0,0,0.644);
+}
+
+.flex-button.border-right {
+  border-right: solid 1px rgba(0,0,0,0.644);
 }
 
 .check_group {
@@ -200,6 +227,8 @@ label {
   align-self: center;
   width: calc(100% - .25rem);
   min-height: 5rem;
+  resize: vertical;
+  overflow: auto;
 }
 
 .input_group>input[type=text] {
