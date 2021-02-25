@@ -14,13 +14,13 @@ export class CalTableComponent implements OnInit, OnDestroy {
   state: CalView = CalView.month;
   currentDate: Date;
   calView = CalView;
-  
+
   monthRows = [];
   weekDays = [];
 
   private destroy$ = new Subject<boolean>();
-  
-  constructor(private contextService: ContextService) {}
+
+  constructor(private contextService: ContextService) { }
 
   ngOnInit() {
     this.contextService.currentDate$
@@ -44,7 +44,7 @@ export class CalTableComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next(true);
   }
-  
+
   // returns the length of the month
   private getMonthLength(date: Date): number {
     let year = date.getFullYear();
@@ -75,7 +75,7 @@ export class CalTableComponent implements OnInit, OnDestroy {
     const numRows = (first + length) / 7;
     // let emptyDays = this.first;
     this.monthRows[0] = [];
-    for(let i = 0; i < first; i++) {
+    for (let i = 0; i < first; i++) {
       this.monthRows[0].push(undefined);
     }
 
@@ -130,7 +130,7 @@ export class CalTableComponent implements OnInit, OnDestroy {
     this.weekDays = [];
     for (let i = 0; i < 7; i++) {
       this.weekDays.push({ day: this.currentDate.getDate(), date: this.currentDate });
-      this.currentDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate()+1);
+      this.currentDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate() + 1);
     }
     // console.log(this.weekDays);
   }

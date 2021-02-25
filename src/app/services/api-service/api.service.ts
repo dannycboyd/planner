@@ -22,16 +22,29 @@ export class ApiService {
     // this.url = 'localhost:8080';
   }
 
+  private assembleQuery(params: Array<{ param: String, value: String }>): String {
+    if (params.length > 1) {
+      return '';
+    }
+    let val = params.pop();
+    let ret = `?${val.param}=${val.value}`;
+    while (params.length) {
+      val = params.pop();
+      ret = ret + `&${val.param}=${val.value}`
+    }
+    return ret;
+  }
+
   private assembleUrl(path): string {
     return this.url + '/' + path;
   }
 
   get(endpoint: string) {
-    return this.http.get(this.assembleUrl(endpoint), { headers: { Accept: 'application/json' }});
+    return this.http.get(this.assembleUrl(endpoint), { headers: { Accept: 'application/json' } });
   }
 
-  getAllItems(): Observable<ItemsResponse> {
-    const reqUrl = this.assembleUrl('items/get')
+  getAllItems(params: Array<{ param: String, value: String }> = [{ param: 'with_related', value: 'true' }]): Observable<ItemsResponse> {
+    const reqUrl = this.assembleUrl('items/get') + this.assembleQuery(params);
     return this.http.get<ItemsResponse>(reqUrl)
   }
 

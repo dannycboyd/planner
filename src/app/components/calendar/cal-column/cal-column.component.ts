@@ -57,12 +57,12 @@ export class CalColumnComponent {
     // console.log('setYear');
     this.contextService.setCurrentSegment(CalView.year);
   }
-  
+
   setMonth() {
     // console.log('setmo');
     this.contextService.setCurrentSegment(CalView.month);
   }
-  
+
   setWeek() {
     // console.log('setwe');
     this.contextService.setCurrentSegment(CalView.week)
@@ -70,7 +70,7 @@ export class CalColumnComponent {
 
   goBack() {
     let offset;
-    switch(this.currentSegment) {
+    switch (this.currentSegment) {
       case CalView.week:
         offset = this.currentDate.getDate();
         this.currentDate.setDate(offset - 7);
@@ -90,7 +90,7 @@ export class CalColumnComponent {
 
   goForward() {
     let offset;
-    switch(this.currentSegment) {
+    switch (this.currentSegment) {
       case CalView.week:
         offset = this.currentDate.getDate();
         this.currentDate.setDate(offset + 7);

@@ -2,9 +2,6 @@
   <h1>Items</h1>
 </div>
 <div class="columns__content">
-  <item-li *ngFor="let item of items"
-    [item]="item"
-    (click)="selectItem(item)"
-    (itemDeleted)="deleteItem(item)">
+  <item-li *ngFor="let item of items" [item]="item" (click)="selectItem(item)" (itemDeleted)="deleteItem(item)">
   </item-li>
 </div>

@@ -5,132 +5,98 @@
   <meta charset="utf-8">
   <title>Planner style template</title>
   <link rel="stylesheet" type="text/css" href="./src/styles.css">
-  <!-- <link rel="stylesheet" type="text/css" href="imgoingtokillyou.css"> -->
 </head>
 
 <body>
   <div class="columns__container">
-    <div class="columns__column bg-offwhite">
-      <div class="columns__header bg-orange">
-        <div class="flex-container">
-          <h1 class="flex-fill">Items</h1>
-          <button class="flex__column-4rem flex-button border-left">+</button>
+    <div class="columns__column">
+      <div class="columns__section bg-offwhite">
+
+        <div class="columns__header bg-orange">
+          <h1>Items</h1>
+        </div>
+        <div class="columns__content">
+          <div class="item">
+            <h3>Item 1</h3>
+            <span class="date">Jan 10, 2020</span>
+            <h6>tags?</h6>
+          </div>
+          <div class="item item__selected">
+            <h3>Item 2</h3>
+            <span class="date">Jan 10, 2020</span>
+          </div>
+          <div class="item">
+            <h3>Item 3</h3>
+            <span class="date">Jan 10, 2020</span>
+          </div>
+          <div class="item">
+            <h3>Item 3</h3>
+            <span class="date">Jan 10, 2020</span>
+          </div>
+          <div class="item">
+            <h3>Item 3</h3>
+            <span class="date">Jan 10, 2020</span>
+          </div>
+          <div class="item">
+            <h3>Item 3</h3>
+            <span class="date">Jan 10, 2020</span>
+          </div>
+          <div class="item">
+            <h3>Item 3</h3>
+            <span class="date">Jan 10, 2020</span>
+          </div>
+          <div class="item">
+            <h3>Item 3</h3>
+            <span class="date">Jan 10, 2020</span>
+          </div>
+          <div class="item">
+            <h3>Item 3</h3>
+            <span class="date">Jan 10, 2020</span>
+          </div>
+          <div class="item">
+            <h3>Item 3</h3>
+            <span class="date">Jan 10, 2020</span>
+          </div>
+          <div class="item">
+            <h3>Item 3</h3>
+            <span class="date">Jan 10, 2020</span>
+          </div>
         </div>
       </div>
-      <div class="columns__content">
-        <div class="item">
-          <h3>Item 1</h3>
-          <span *ngIf="item.start_d">Jan 10, 2020</span>
+    </div>
+    <div class="columns__column">
+      <div class="columns__section bg-offwhite">
+
+        <div class="columns__header bg-orange">
+          <h1>Item 2</h1>
+        </div>
+        <div class="item_info">
+          <div class="item_date">
+            10
+            16
+            95
+          </div>
+          <div class="item_tags">
+            <ul>
+              <li>plans</li>
+              <li>plans</li>
+              <li>plans</li>
+              <li>plans</li>
+              <li>plans</li>
+              <li>plans</li>
+              <li>plans</li>
+            </ul>
+          </div>
+        </div>
+        <div class="item_body">
           <p>Curabitur tempor sed urna aliquet tincidunt. Vivamus et sollicitudin odio, ac
             commodo libero. Etiam tellus nisi, aliquam non ex eu, interdum pretium justo. Sed aliquet a metus sed
             dictum. Nullam sit amet pellentesque orci, ut ornare leo. Duis et velit ac ipsum dignissim tempus vel eget
             augue. Phasellus vitae eleifend sem. Integer nec ultrices justo.</p>
         </div>
-        <div class="item">
-          <h3>Item 2</h3>
-          <span *ngIf="item.start_d">Jan 10, 2020</span>
-          <p>Suspendisse ut eleifend tortor. Nunc vel diam rutrum, porta sapien in, gravida lectus. Donec sit amet
-            sollicitudin diam. Etiam non quam eu metus molestie sagittis eget quis sapien. Proin mauris est, lacinia
-            laoreet augue fringilla, gravida vulputate orci. Donec sit amet erat elit. Duis ornare in massa non
-            volutpat. Curabitur ac tincidunt odio, sed consectetur lectus. Nam vitae lacus sed enim eleifend blandit.
-            Integer non venenatis nulla. Nulla ultricies elit quis dapibus tristique. Proin porta mi nec velit lobortis
-            varius. Morbi rhoncus magna ut mi ornare, quis feugiat mauris sollicitudin.
-          </p>
-        </div>
-        <div class="item">
-          <h3>Item 3</h3>
-          <span *ngIf="item.start_d">Jan 10, 2020</span>
-          <p>Etiam lobortis justo nec nisi iaculis convallis. Nulla facilisi. Nam rutrum malesuada urna, vel laoreet
-            turpis maximus dictum. Phasellus tellus diam, ultrices eu tortor et, aliquam fermentum leo. Phasellus auctor
-            justo sit amet dolor vulputate, sit amet lobortis sem vestibulum. Quisque pellentesque rutrum sapien, sit
-            amet facilisis ex interdum in. Ut vel lectus sed lacus gravida fermentum. Morbi sodales est lectus, at
-            varius quam tincidunt sed.
-          </p>
-        </div>
-      </div>
-      <form>
-        <div class="input_group">
-          <div class="input_title">
-            <label for="item_title">Title</label>
-          </div>
-          <input id="item_title" type="text">
-        </div>
-
-        <div class="input_group">
-          <div class="input_title">
-            <label for="item_note">Note</label>
-          </div>
-          <textarea id="item_note"></textarea>
-        </div>
-
-        <div class="columns columns-2">
-          <div class="input_group">
-            <div class="input_title">
-              <label for="item_start_d">Start Date</label>
-            </div>
-            <input id="item_start_d" type="text">
-          </div>
-
-          <div class="input_group">
-            <div class="input_title">
-              <label for="item_end_d">End Date</label>
-            </div>
-            <!-- Would be nice to have this prettyprint the date -->
-            <input id="item_end_d" type="text">
-          </div>
-        </div>
-
-        <ul class="check_group">
-          <div>
-            <input id="item_cal" type="checkbox">
-            <label for="item_cal">Cal</label>
-          </div>
-          <div>
-
-            <input id="item_journal" type="checkbox">
-            <label for="item_journal">Journal</label>
-          </div>
-          <div>
-            <input id="item_todo" type="checkbox">
-            <label for="item_todo">Todo</label>
-          </div>
-          <button>Save</button>
-        </ul>
-      </form>
-    </div>
-    <div class="columns__column bg-offwhite">
-      <div class="columns__header bg-orange with-button-group">
-        <div class="flex-container">
-          <button class="flex__column-4rem flex-button border-right" (click)="goBack()">←</button>
-          <h1 class="flex-fill">Month of January, 2021</h1>
-          <button class="flex__column-4rem flex-button border-left" (click)="goForward()">→</button>
-        </div>
-        <div>
-          <div class="button-group no-sides round-bottom">
-            <button (click)="setYear()">Year</button>
-            <button (click)="setMonth()">Month</button>
-            <button (click)="setWeek()">Week</button>
-          </div>
-        </div>
-      </div>
-      <div class="cal_month" *ngIf="state === calView.month">
-        <!-- <div class="calTable__title">
-          <h3>
-            Monthly view
-          </h3>
-        </div> -->
-
-        <!-- <div class="cal__month_row"
-          *ngFor="let row of monthRows">
-          <div class="cal__month_col"
-            *ngFor="let col of row"
-            (click)="selectDay(col)">
-              {{col}}
-          </div>
-        </div> -->
-
-        <table class="cal_table">
-          <tr class="cal_th_7">
+        <!-- <div class="cal_week" *ngIf="state === calView.week">
+        <table>
+          <tr>
             <th>Sun</th>
             <th>Mon</th>
             <th>Tues</th>
@@ -140,111 +106,157 @@
             <th>Sat</th>
           </tr>
           <tr>
-            <td class="cal_table-cell month">1</td>
-            <td class="cal_table-cell month">2</td>
-            <td class="cal_table-cell month">3</td>
-            <td class="cal_table-cell month">4</td>
-            <td class="cal_table-cell month">5</td>
-            <td class="cal_table-cell month">6</td>
-            <td class="cal_table-cell month">7</td>
-          </tr>
-          <tr>
-            <td class="cal_table-cell month today">8</td>
-            <td class="cal_table-cell month">9</td>
-            <td class="cal_table-cell month">10</td>
-            <td class="cal_table-cell month">11</td>
-            <td class="cal_table-cell month">12</td>
-            <td class="cal_table-cell month">13</td>
-            <td class="cal_table-cell month">14</td>
-          </tr>
-          <tr>
-            <td class="cal_table-cell month">15</td>
-            <td class="cal_table-cell month">16</td>
-            <td class="cal_table-cell month">17</td>
-            <td class="cal_table-cell month">18</td>
-            <td class="cal_table-cell month">19</td>
-            <td class="cal_table-cell month">20</td>
-            <td class="cal_table-cell month">21</td>
+            <td *ngFor="let item of weekDays" class="cal_table-cell week">
+              {{item.day}}
+            </td>
           </tr>
         </table>
-      </div>
-
-      <!-- <div class="cal_week" *ngIf="state === calView.week">
-      <table>
-        <tr>
-          <th>Sun</th>
-          <th>Mon</th>
-          <th>Tues</th>
-          <th>Wed</th>
-          <th>Thur</th>
-          <th>Fri</th>
-          <th>Sat</th>
-        </tr>
-        <tr>
-          <td *ngFor="let item of weekDays" class="cal_table-cell week">
-            {{item.day}}
-          </td>
-        </tr>
-      </table>
-    </div> -->
-    </div>
-    <div class="columns__column bg-offwhite">
-      <div class="columns__header bg-orange">
-        <h1>Items</h1>
-      </div>
-      <div class="columns__content">
-        <form>
-          <div class="input_group">
-            <div class="input_title">
-              <label for="item_title">Title</label>
-            </div>
-            <input id="item_title" type="text">
-          </div>
-
-          <div class="input_group">
-            <div class="input_title">
-              <label for="item_note">Note</label>
-            </div>
-            <textarea id="item_note"></textarea>
-          </div>
-
-          <div class="columns columns-2">
-            <div class="input_group">
-              <div class="input_title">
-                <label for="item_start_d">Start Date</label>
-              </div>
-              <input id="item_start_d" type="text">
-            </div>
-
-            <div class="input_group">
-              <div class="input_title">
-                <label for="item_end_d">End Date</label>
-              </div>
-              <!-- Would be nice to have this prettyprint the date -->
-              <input id="item_end_d" type="text">
-            </div>
-          </div>
-
-          <ul class="check_group">
-            <div>
-              <input id="item_cal" type="checkbox">
-              <label for="item_cal">Cal</label>
-            </div>
-            <div>
-
-              <input id="item_journal" type="checkbox">
-              <label for="item_journal">Journal</label>
-            </div>
-            <div>
-              <input id="item_todo" type="checkbox">
-              <label for="item_todo">Todo</label>
-            </div>
-            <button>Save</button>
-          </ul>
-        </form>
+      </div> -->
       </div>
     </div>
-    <!-- Look into a fixed header with 100% content length with top margin -->
+    <div class="columns__column">
+      <div class="flex-container flex-vertical fullheight">
+        <div class="columns__section bg-offwhite">
+          <div class="columns__header bg-orange">
+            <h1>Reminders</h1>
+            <!-- The reminders column will have a pane at the top (content height) for general (no due date?) reminders
+        and the bottom pane will be for context-relative items. The top pane has no subheading, the bottom pane has a title (matching the context? Is that useful?)
+        and will have a stretch to fill height -->
+          </div>
+          <div class="flex-container flex-vertical fullheight">
+
+            <div class="list-card">
+              <div class="list-card__content">
+                <ul class="reminders__incomplete">
+                  <li class="reminders__reminder">
+                    <input type="checkbox" id="reminder_1">
+                    <label for="reminder_1">Get a haircut</label>
+                  </li>
+                  <li class="reminders__reminder">
+                    <input type="checkbox" id="reminder_2">
+                    <label for="reminder_1">Walk the dog</label>
+                  </li>
+                  <li class="reminders__reminder">
+                    <input type="checkbox" id="reminder_3">
+                    <label for="reminder_1">Feed the cat</label>
+                  </li>
+                </ul>
+                <ul class="reminders__complete" id="reminders_completed">
+                  <label for="reminders_completed">completed -- like grayed out or something, sort on pageload, drag to
+                    reorder?</label>
+                  <li>
+                    <input type="checkbox" id="reminder_4">
+                    <label for="reminder_4">Sleep</label>
+                  </li>
+                </ul>
+              </div>
+              <!-- </div> -->
+            </div>
+            <div class="list-card flex-fill">
+              <!-- <div class="columns__content"> -->
+              <div class="list-card__header bg-orange">
+                <h2>January, 2021 <span>></span></h2>
+              </div>
+              <div class="list-card__content">
+                <ul class="reminders__incomplete">
+                  <li class="reminders__reminder">
+                    <input type="checkbox" id="reminder_1">
+                    <label for="reminder_1">Get a haircut</label>
+                  </li>
+                  <li class="reminders__reminder">
+                    <input type="checkbox" id="reminder_2">
+                    <label for="reminder_1">Walk the dog</label>
+                  </li>
+                  <li class="reminders__reminder">
+                    <input type="checkbox" id="reminder_3">
+                    <label for="reminder_1">Feed the cat</label>
+                  </li>
+                </ul>
+                <ul class="reminders__complete">
+                  <li>
+                    <input type="checkbox" id="reminder_4">
+                    <label for="reminder_4">Sleep</label>
+                  </li>
+                </ul>
+              </div>
+              <!-- </div> -->
+            </div>
+          </div>
+        </div>
+        <!-- Look into a fixed header with 100% content length with top margin -->
+
+        <div class="columns__section flex-no-grow bg-offwhite">
+
+          <div class="columns__header bg-orange with-button-group">
+            <div class="flex-container">
+              <button class="flex__column-4rem flex-button border-right" (click)="goBack()">←</button>
+              <h1 class="flex-fill">January, 2021</h1>
+              <button class="flex__column-4rem flex-button border-left" (click)="goForward()">→</button>
+            </div>
+            <div class="button-group no-sides round-bottom">
+              <button (click)="setYear()">Year</button>
+              <button (click)="setMonth()">Month</button>
+              <button (click)="setWeek()">Week</button>
+            </div>
+          </div>
+          <div class="cal_month" *ngIf="state === calView.month">
+            <!-- <div class="calTable__title">
+            <h3>
+              Monthly view
+            </h3>
+          </div> -->
+
+            <!-- <div class="cal__month_row"
+            *ngFor="let row of monthRows">
+            <div class="cal__month_col"
+              *ngFor="let col of row"
+              (click)="selectDay(col)">
+                {{col}}
+            </div>
+          </div> -->
+
+            <table class="cal_table">
+              <tr class="cal_th_7">
+                <th>Sun</th>
+                <th>Mon</th>
+                <th>Tues</th>
+                <th>Wed</th>
+                <th>Thur</th>
+                <th>Fri</th>
+                <th>Sat</th>
+              </tr>
+              <tr>
+                <td class="cal_table-cell month">1</td>
+                <td class="cal_table-cell month">2</td>
+                <td class="cal_table-cell month">3</td>
+                <td class="cal_table-cell month">4</td>
+                <td class="cal_table-cell month">5</td>
+                <td class="cal_table-cell month">6</td>
+                <td class="cal_table-cell month">7</td>
+              </tr>
+              <tr>
+                <td class="cal_table-cell month today">8</td>
+                <td class="cal_table-cell month">9</td>
+                <td class="cal_table-cell month">10</td>
+                <td class="cal_table-cell month">11</td>
+                <td class="cal_table-cell month">12</td>
+                <td class="cal_table-cell month">13</td>
+                <td class="cal_table-cell month">14</td>
+              </tr>
+              <tr>
+                <td class="cal_table-cell month">15</td>
+                <td class="cal_table-cell month">16</td>
+                <td class="cal_table-cell month">17</td>
+                <td class="cal_table-cell month">18</td>
+                <td class="cal_table-cell month">19</td>
+                <td class="cal_table-cell month">20</td>
+                <td class="cal_table-cell month">21</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 
