@@ -13,12 +13,10 @@ export class AppComponent implements OnInit {
   selectedTitle = this._selected;
   selectedItem: PlanItem;
   items: Array<PlanItem> = [];
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    this.dataService.items.subscribe((items: Array<PlanItem>) => {
-      this.items = items;
-    })
+
     this.dataService.getAllItems();
   }
 

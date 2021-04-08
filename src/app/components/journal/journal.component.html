@@ -1,0 +1,133 @@
+<div class="columns__header bg-orange">
+  <div class="flex-container" *ngIf="selected && !editing">
+    <button class="flex__column-4rem flex-button border-right" (click)="edit()">Edit</button>
+    <h1 class="flex-fill">{{selectedTitle}}</h1>
+    <button class="flex__column-4rem flex-button border-left" (click)="new()">+</button>
+  </div>
+
+  <div class="flex-container" *ngIf="!selected || editing">
+    <h1 class="flex-fill">{{selectedTitle}}</h1>
+    <button class="flex__column-4rem flex-button border-left" (click)="new()">+</button>
+  </div>
+</div>
+
+<div class="columns__content">
+  <div *ngIf="selected" class="column__subsection">
+    <div *ngIf="!editing" class="column__subsection__content">
+
+      <div class="item_date">
+        <pretty-date [date]="selected.created_at"></pretty-date>
+      </div>
+      <div class="item_body">
+        <p>{{selected.note}}</p>
+      </div>
+
+      <div class="columns columns-2">
+        <div class="">
+          {{selected.created_at}}
+        </div>
+        <div class="">
+          {{selected.updated_at}}
+        </div>
+      </div>
+      <br>
+      <div class="columns columns-2">
+        <div class="">
+          {{selected.start_d}}
+        </div>
+        <div class="">
+          {{selected.end_d}}
+        </div>
+      </div>
+
+      <div class="item_tags flex-container flex-wrap">
+        <span *ngFor="let tag of selected.tags" (click)="tagSelected(tag.tag)">{{tag.tag}}</span>
+      </div>
+
+      <div class="item_references">
+        <div class="parent" id="item_parent" *ngIf="selectedParent">
+          <h3>Parent</h3>
+          <span class="item_link">{{selectedParent}}</span>
+        </div>
+        <div class="children" id="item_children" *ngIf="children.length">
+          <h3>Children</h3>
+          <ul>
+            <li class="item_link" *ngFor="let childTitle of children">
+              {{childTitle}}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="editing" class="column__subsection__content">
+      <form [formGroup]=" itemForm">
+        <div class="input_group">
+          <div class="input_title">
+            <label for="item_title">Title</label>
+          </div>
+          <input id="item_title" type="text" formControlName="title">
+        </div>
+
+        <div class="input_group">
+          <div class="input_title">
+            <label for="item_note">Note</label>
+          </div>
+          <textarea id="item_note" formControlName="note"></textarea>
+        </div>
+
+        <div class="columns columns-2">
+          <div class="input_group">
+            <div class="input_title">
+              <label for="item_start_d">Start Date</label>
+            </div>
+            <input id="item_start_d" type="text" formControlName="start_d" (blur)="parseDate('start_d')">
+
+          </div>
+
+          <div class="input_group">
+            <div class="input_title">
+              <label for="item_end_d">End Date</label>
+            </div>
+            <!-- Would be nice to have this prettyprint the date -->
+            <input id="item_end_d" type="text" formControlName="end_d" (blur)="parseDate('end_d')">
+          </div>
+        </div>
+        <label for="item_rep">Repetition</label>
+        <select id="item_rep" formControlName="repeats" aria-placeholder="Select Repetition Type">
+          <option *ngFor="let option of repetition_options" [ngValue]="option.value">{{option.label}}</option>
+        </select>
+
+        <ul class="check_group">
+          <div>
+            <input id="item_cal" type="checkbox" formControlName="cal">
+            <label for="item_cal">Cal</label>
+          </div>
+          <div>
+
+            <input id="item_journal" type="checkbox" formControlName="journal">
+            <label for="item_journal">Journal</label>
+          </div>
+          <div>
+            <input id="item_todo" type="checkbox" formControlName="todo">
+            <label for="item_todo">Todo</label>
+          </div>
+        </ul>
+
+        <ul class="">
+          <li *ngFor="let ref of refs">
+            <span>{{ref}}</span>
+            <button>x</button>
+          </li>
+        </ul>
+        <input id="item_ref" type="text" (keyup.enter)="add_ref()">
+        <label for="item_ref">Reference</label>
+
+        <input id="item_tags" type="text" formControlName="tags">
+        <label for="item_tags">Tags</label>
+      </form>
+      <button (click)="save_item()">Save</button>
+      <button (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+
+</div>

@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { PlanItem } from 'src/app/models';
+import { DataService } from 'src/app/services';
 
 @Component({
   selector: 'item-list',
@@ -8,14 +9,25 @@ import { PlanItem } from 'src/app/models';
 export class ItemListComponent {
   @Input() items: Array<PlanItem> = [];
 
-  @Output() itemSelected = new EventEmitter<PlanItem>();
-  @Output() itemDeleted = new EventEmitter<PlanItem>();
+  constructor(private dataService: DataService) { }
 
-  selectItem(item) {
-    this.itemSelected.emit(item);
+  ngOnInit() {
+    this.dataService.items.subscribe(i => {
+      this.items = i;
+    });
+  }
+
+  selectItem(item: PlanItem) {
+    console.log('send selectItem: ', item);
+    this.dataService.selectItem(item.id);
   }
 
   deleteItem(item) {
-    this.itemDeleted.emit(item);
+    // this.itemDeleted.emit(item);
+    console.log('implement delete item :)')
+  }
+
+  updateSearchFilter(values) {
+    this.dataService.getAllItems(values);
   }
 }

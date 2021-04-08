@@ -15,10 +15,10 @@ export class ItemListitemComponent implements OnInit {
   }
 
   deleteItem() {
-    this.itemDeleted.emit(true);
+    this.itemDeleted.emit(true); // delete, this lives elsewhere
   }
 
-  deleteReference(ref) {
+  deleteReference(ref) { // delete, this lives elsewhere
     this.referenceDeleted.emit(ref.id);
   }
 }

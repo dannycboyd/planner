@@ -111,6 +111,10 @@ table {
   flex-grow: 1
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .flex__column-2rem {
   flex-basis: 2rem;
 }
@@ -176,34 +180,37 @@ table.cal_table>tbody>tr.cal_th_7>th {
   text-align: center;
 }
 
-.list-card {
+.column__subsection {
   border-bottom: 1px solid black;
 }
 
-.list-card:last-of-type {
+.column__subsection:last-of-type {
   border-bottom: none;
 }
 
-.list-card__header {
+.column__subsection__header {
   padding: 2px;
-  margin: 0;
   text-align: center;
   /* display: block; */
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
 
-.list-card__header>h2 {
+.column__subsection__header>h2 {
   margin-block: 0;
   font-size: 1.15rem;
 }
 
-.list-card__content {
-
+.column__subsection__content {
+  padding: 7px;
 }
 
 .reminders__reminder {
 
+}
+
+.reminders__subreminders {
+  margin-left: 1rem;
 }
 
 
@@ -300,6 +307,16 @@ label {
   font-weight: 11pt;
 }
 
+.searchbar {
+  width: calc(100% - 10px);
+  padding: 5px;
+  border-bottom: 1px solid black;
+}
+
+.searchbar>input {
+  width: calc(100% - 5px);
+}
+
 .align-left {
   text-align: left;
 }
@@ -337,18 +354,66 @@ ul {
 
 .item {
   border-bottom: solid 1px rgba(0,0,0,0.257);
-  padding-top: .5rem;
-  padding-bottom: 1rem;
+  padding: .5rem 5px 5px 5px;
 }
 
-/* .item>.date {
+.item__id {
+  color: rgb(153, 153, 153);
+}
+
+.item_body {
+  text-align: justify;
+  min-height: 4rem;
+  padding-bottom: .5rem;
+  margin-bottom: .5rem;
+  border-bottom: solid 1px rgba(0,0,0,0.257);
+
+}
+
+.item_date {
   float: right;
+  text-align: center;
+  border: 1px solid black;
+  margin-left: 5px;
+  padding: 5px;
 }
 
-.item>h3 {
-  margin-block: 0;
-  float: left;
-} */
+.item_date>p {
+   padding: 0 !important;
+}
+
+
+.item_tags>span {
+  display: block;
+  background:rgb(153, 153, 153);
+  color:white;
+  margin: .1rem;
+  padding: .2rem;
+  border-radius: 3px;
+}
+
+.item_tags.small>span {
+  background: none;
+  color: black;
+  font-size: .67rem;
+  padding: 1px;
+  text-decoration: underline;
+}
+
+.item_references {
+  /* padding-top: 1rem; */
+}
+
+.item_references>div {
+  padding-top: 1rem;
+}
+
+.item_link {
+  text-decoration: underline;
+  cursor: pointer;
+  padding-bottom: 5px;
+  padding-left: 1rem;
+}
 
 .item.item__selected {
   background: #fcb603;

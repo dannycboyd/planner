@@ -7,116 +7,185 @@
   <link rel="stylesheet" type="text/css" href="./src/styles.css">
 </head>
 
+<!-- app-component -->
+
 <body>
   <div class="columns__container">
     <div class="columns__column">
       <div class="columns__section bg-offwhite">
-
+        <!-- itemlist column -->
         <div class="columns__header bg-orange">
-          <h1>Items</h1>
+          <h1>Journal</h1>
         </div>
-        <div class="columns__content">
-          <div class="item">
-            <h3>Item 1</h3>
-            <span class="date">Jan 10, 2020</span>
-            <h6>tags?</h6>
+        <div class="searchbar">
+          <input type="text" placeholder="Search name, tags, date...">
+        </div>
+        <div class="column__subsection">
+          <!-- itemlist container -->
+          <div class="item item__selected flex-container">
+            <!-- itemlist item -->
+            <div>
+              <h3 class="">Item 2</h3>
+              <div class="flex-container flex-wrap item_tags small">
+                <span>Clicking</span>
+                <span>on</span>
+                <span>these</span>
+                <span>tags</span>
+                <span>will</span>
+                <span>fire</span>
+                <span>off</span>
+                <span>a</span>
+                <span>search</span>
+                <span>in</span>
+                <span>the</span>
+                <span>leftmost</span>
+                <span>pane</span>
+              </div>
+            </div>
+            <div class="item_date">
+              <!-- date component? -->
+              <p>10</p>
+              <p>16</p>
+              <p>95</p>
+            </div>
           </div>
-          <div class="item item__selected">
-            <h3>Item 2</h3>
-            <span class="date">Jan 10, 2020</span>
+          <div class="item flex-container">
+            <div class="flex-fill">
+              <h3>Item 3 Searches happen server side</h3>
+              <div class="flex-container flex-wrap item_tags small">
+                <span>maybe tag filtering happens locally?</span>
+              </div>
+            </div>
+            <div class="item_date">
+              <p>01</p>
+              <p>16</p>
+              <p>20</p>
+            </div>
           </div>
-          <div class="item">
-            <h3>Item 3</h3>
-            <span class="date">Jan 10, 2020</span>
+          <div class="item flex-container">
+            <div class="flex-fill">
+              <h3>Thought of a cool thing to write about today</h3>
+              <div class="flex-container flex-wrap item_tags small">
+                <span>journal stuff</span>
+              </div>
+            </div>
+            <div class="item_date">
+              <p>01</p>
+              <p>16</p>
+              <p>20</p>
+            </div>
           </div>
-          <div class="item">
-            <h3>Item 3</h3>
-            <span class="date">Jan 10, 2020</span>
+          <div class="item flex-container">
+            <div class="flex-fill">
+              <h3>This is an item title</h3>
+              <div class="flex-container flex-wrap item_tags small">
+                <span>maybe tag filtering happens locally?</span>
+              </div>
+            </div>
+            <div class="item_date">
+              <p>01</p>
+              <p>16</p>
+              <p>20</p>
+            </div>
           </div>
-          <div class="item">
-            <h3>Item 3</h3>
-            <span class="date">Jan 10, 2020</span>
+          <div class="item flex-container">
+            <div class="flex-fill">
+              <h3>Item 78</h3>
+              <div class="flex-container flex-wrap item_tags small">
+                <span>Tag</span>
+                <span>click</span>
+                <span>on </span>
+                <span>me</span>
+              </div>
+            </div>
+            <div class="item_date">
+              <p>06</p>
+              <p>12</p>
+              <p>18</p>
+            </div>
           </div>
-          <div class="item">
-            <h3>Item 3</h3>
-            <span class="date">Jan 10, 2020</span>
-          </div>
-          <div class="item">
-            <h3>Item 3</h3>
-            <span class="date">Jan 10, 2020</span>
-          </div>
-          <div class="item">
-            <h3>Item 3</h3>
-            <span class="date">Jan 10, 2020</span>
-          </div>
-          <div class="item">
-            <h3>Item 3</h3>
-            <span class="date">Jan 10, 2020</span>
-          </div>
-          <div class="item">
-            <h3>Item 3</h3>
-            <span class="date">Jan 10, 2020</span>
-          </div>
-          <div class="item">
-            <h3>Item 3</h3>
-            <span class="date">Jan 10, 2020</span>
+          <div class="item flex-container">
+            <div class="flex-fill">
+              <h3>Item 8912397123123</h3>
+              <div class="flex-container flex-wrap item_tags small">
+                <span>maybe tag filtering happens locally?</span>
+              </div>
+            </div>
+            <div class="item_date">
+              <p>01</p>
+              <p>16</p>
+              <p>20</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- MIDDLE PANE -->
     <div class="columns__column">
       <div class="columns__section bg-offwhite">
+        <!-- journal column -->
 
         <div class="columns__header bg-orange">
           <h1>Item 2</h1>
         </div>
-        <div class="item_info">
-          <div class="item_date">
-            10
-            16
-            95
-          </div>
-          <div class="item_tags">
-            <ul>
-              <li>plans</li>
-              <li>plans</li>
-              <li>plans</li>
-              <li>plans</li>
-              <li>plans</li>
-              <li>plans</li>
-              <li>plans</li>
-            </ul>
+        <div class="column__subsection">
+          <div class="column__subsection__content">
+
+            <div class="item_date">
+              <p>10</p>
+              <p>16</p>
+              <p>95</p>
+            </div>
+            <div class="item_body">
+              <p>Curabitur tempor sed urna aliquet tincidunt. Vivamus et sollicitudin odio, ac
+                commodo libero. Etiam tellus nisi, aliquam non ex eu, interdum pretium justo. Sed aliquet a metus sed
+                dictum. Nullam sit amet pellentesque orci, ut ornare leo. Duis et velit ac ipsum dignissim tempus vel
+                eget
+                augue. Phasellus vitae eleifend sem. Integer nec ultrices justo.</p>
+            </div>
+
+            <div class="item_tags flex-container flex-wrap">
+              <span>Clicking</span>
+              <span>on</span>
+              <span>these</span>
+              <span>tags</span>
+              <span>will</span>
+              <span>fire</span>
+              <span>off</span>
+              <span>a</span>
+              <span>search</span>
+              <span>in</span>
+              <span>the</span>
+              <span>leftmost</span>
+              <span>pane</span>
+            </div>
+
+            <div class="item_references">
+              <div class="parent" id="item_parent">
+                <h3>Parent</h3>
+                <span class="item_link">Item 3 Longer Item Title Would Go Here</span>
+              </div>
+              <div class="children" id="item_children">
+                <h3>Children</h3>
+                <ul>
+                  <li class="item_link">Item 5</li>
+                  <li class="item_link">Item 6</li>
+                  <li class="item_link">Item 1</li>
+                  <li class="item_link">Item 8</li>
+                  <li class="item_link">Item 7</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="item_body">
-          <p>Curabitur tempor sed urna aliquet tincidunt. Vivamus et sollicitudin odio, ac
-            commodo libero. Etiam tellus nisi, aliquam non ex eu, interdum pretium justo. Sed aliquet a metus sed
-            dictum. Nullam sit amet pellentesque orci, ut ornare leo. Duis et velit ac ipsum dignissim tempus vel eget
-            augue. Phasellus vitae eleifend sem. Integer nec ultrices justo.</p>
-        </div>
-        <!-- <div class="cal_week" *ngIf="state === calView.week">
-        <table>
-          <tr>
-            <th>Sun</th>
-            <th>Mon</th>
-            <th>Tues</th>
-            <th>Wed</th>
-            <th>Thur</th>
-            <th>Fri</th>
-            <th>Sat</th>
-          </tr>
-          <tr>
-            <td *ngFor="let item of weekDays" class="cal_table-cell week">
-              {{item.day}}
-            </td>
-          </tr>
-        </table>
-      </div> -->
+
       </div>
     </div>
+    <!-- RIGHT PANE -->
     <div class="columns__column">
       <div class="flex-container flex-vertical fullheight">
         <div class="columns__section bg-offwhite">
+          <!-- reminders column -->
           <div class="columns__header bg-orange">
             <h1>Reminders</h1>
             <!-- The reminders column will have a pane at the top (content height) for general (no due date?) reminders
@@ -125,8 +194,9 @@
           </div>
           <div class="flex-container flex-vertical fullheight">
 
-            <div class="list-card">
-              <div class="list-card__content">
+            <div class="column__subsection">
+              <!-- reminder subsection -->
+              <div class="column__subsection__content">
                 <ul class="reminders__incomplete">
                   <li class="reminders__reminder">
                     <input type="checkbox" id="reminder_1">
@@ -138,30 +208,54 @@
                   </li>
                   <li class="reminders__reminder">
                     <input type="checkbox" id="reminder_3">
-                    <label for="reminder_1">Feed the cat</label>
+                    <label for="reminder_1">Put a fold-out button on this</label>
+                    <ul class="reminders__subreminders">
+                      <li class="reminders__reminder">
+                        <input type="checkbox" id="subreminder_3-1">
+                        <label for="subreminder_3-1">Add subreminders</label>
+                      </li>
+                    </ul>
                   </li>
                 </ul>
                 <ul class="reminders__complete" id="reminders_completed">
-                  <label for="reminders_completed">completed -- like grayed out or something, sort on pageload, drag to
+                  <label for="reminders_completed">completed -- like grayed out or something, sort on pageload, drag
+                    to
                     reorder?</label>
                   <li>
                     <input type="checkbox" id="reminder_4">
-                    <label for="reminder_4">Sleep</label>
+                    <label for="reminder_4">Add completed</label>
+                  </li>
+                  <li>
+                    <input type="checkbox" id="reminder_5">
+                    <label for="reminder_4">Add completed</label>
+                  </li>
+                  <li>
+                    <input type="checkbox" id="reminder_6">
+                    <label for="reminder_4">Add completed</label>
+                  </li>
+                  <li>
+                    <input type="checkbox" id="reminder_7">
+                    <label for="reminder_4">Add completed</label>
                   </li>
                 </ul>
               </div>
-              <!-- </div> -->
             </div>
-            <div class="list-card flex-fill">
-              <!-- <div class="columns__content"> -->
-              <div class="list-card__header bg-orange">
+            <div class="column__subsection flex-fill">
+              <!-- reminder date subsection -->
+              <div class="column__subsection__header bg-orange">
                 <h2>January, 2021 <span>></span></h2>
               </div>
-              <div class="list-card__content">
+              <div class="column__subsection__content">
                 <ul class="reminders__incomplete">
                   <li class="reminders__reminder">
                     <input type="checkbox" id="reminder_1">
-                    <label for="reminder_1">Get a haircut</label>
+                    <label for="reminder_1">Make this into sections divided by day/week/something</label>
+                    <ul class="reminders__subreminders">
+                      <li class="reminders__reminder">
+                        <input type="checkbox" id="subreminder_3-1">
+                        <label for="subreminder_3-1">Nice subheadings</label>
+                      </li>
+                    </ul>
                   </li>
                   <li class="reminders__reminder">
                     <input type="checkbox" id="reminder_2">
@@ -186,7 +280,7 @@
         <!-- Look into a fixed header with 100% content length with top margin -->
 
         <div class="columns__section flex-no-grow bg-offwhite">
-
+          <!-- calendar column-->
           <div class="columns__header bg-orange with-button-group">
             <div class="flex-container">
               <button class="flex__column-4rem flex-button border-right" (click)="goBack()">←</button>

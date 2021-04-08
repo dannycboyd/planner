@@ -1,13 +1,12 @@
 <div class="columns__header bg-orange with-button-group">
   <div class="flex-container">
-    <button class="flex__column-4rem flex-button no-bottom" (click)="goBack()">
-      {{'<'}} </button>
-        <h1 class="flex-fill">{{title}}</h1>
-        <button class="flex__column-4rem flex-button no-bottom" (click)="goForward()">></button>
+    <button class="flex__column-4rem flex-button border-right" (click)="goBack()">←</button>
+    <h1 class="flex-fill">{{title}}</h1>
+    <button class="flex__column-4rem flex-button border-left" (click)="goForward()">→</button>
   </div>
   <div>
     <div class="button-group">
-      <button (click)="setYear()">Year</button>
+      <!-- <button (click)="setYear()">Year</button> -->
       <button (click)="setMonth()">Month</button>
       <button (click)="setWeek()">Week</button>
     </div>
@@ -15,5 +14,4 @@
 </div>
 <div class="columns__content">
   <cal-table></cal-table>
-  <make-item></make-item>
 </div>

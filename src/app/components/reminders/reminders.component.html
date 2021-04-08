@@ -1,0 +1,68 @@
+<div class="columns__header bg-orange">
+  <h1>Reminders</h1>
+</div>
+
+<div class="flex-container flex-vertical fullheight">
+
+  <div class="column__subsection">
+    <!-- reminder subsection -->
+    <div class="column__subsection__content">
+      <ul class="reminders__incomplete">
+        <li class="reminders__reminder" *ngFor="let item of getTodoItems(); let i = index">
+          <input type="checkbox" id="reminder_{{i}}" (change)="toggleItem(item)">
+          <label for="reminder_{{i}}">{{item.title}}</label>
+
+          <ul class="reminders__subreminders" *ngIf="false">
+            <li class="reminders__reminder" *ngFor="let subitem of []; let j = index">
+              <input type="checkbox" id="subreminder_{{i}}.{{j}}">
+              <label for="subreminder_{{i}}.{{j}}">{{subitem.title}}</label>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="reminders__complete" id="reminders_completed">
+        <label for="reminders_completed">completed</label>
+        <li class="reminders__reminder" *ngFor="let item of getDoneTodoItems(); let i = index">
+          <input type="checkbox" id="reminder_done_{{i}}" checked (change)="toggleItem(item)">
+          <label for="reminder_{{i}}">{{item.title}}</label>
+        </li>
+        <p *ngIf="getDoneTodoItems().length < 1">None</p>
+      </ul>
+    </div>
+  </div>
+  <div class="column__subsection flex-fill">
+    <!-- reminder date subsection -->
+    <div class="column__subsection__header bg-orange">
+      <h2>January, 2021 <span>></span></h2>
+    </div>
+    <div class="column__subsection__content">
+      <ul class="reminders__incomplete">
+        <li class="reminders__reminder">
+          <input type="checkbox" id="reminder_1">
+          <label for="reminder_1">Make this into sections divided by day/week/something</label>
+          <ul class="reminders__subreminders">
+            <li class="reminders__reminder">
+              <input type="checkbox" id="subreminder_3-1">
+              <label for="subreminder_3-1">Nice subheadings</label>
+            </li>
+          </ul>
+        </li>
+        <li class="reminders__reminder">
+          <input type="checkbox" id="reminder_2">
+          <label for="reminder_1">Walk the dog</label>
+        </li>
+        <li class="reminders__reminder">
+          <input type="checkbox" id="reminder_3">
+          <label for="reminder_1">Feed the cat</label>
+        </li>
+      </ul>
+      <ul class="reminders__complete">
+        <li>
+          <input type="checkbox" id="reminder_4">
+          <label for="reminder_4">Sleep</label>
+        </li>
+      </ul>
+    </div>
+    <!-- </div> -->
+  </div>
+</div>

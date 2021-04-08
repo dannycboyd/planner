@@ -1,7 +1,11 @@
 <div class="columns__header bg-orange">
-  <h1>Items</h1>
+  <h1>Journal Entries</h1>
 </div>
-<div class="columns__content">
+<app-search (filterChanges)="updateSearchFilter($event)"></app-search>
+<!-- <div class="searchbar">
+  <input type="text" placeholder="Search name, tags, date...">
+</div> -->
+<div class="column__subsection">
   <item-li *ngFor="let item of items" [item]="item" (click)="selectItem(item)" (itemDeleted)="deleteItem(item)">
   </item-li>
 </div>

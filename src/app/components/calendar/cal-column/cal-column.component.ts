@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { ContextService } from 'src/app/services';
+import { ContextService, DataService } from 'src/app/services';
 import { combineLatest } from 'rxjs';
 import { withLatestFrom } from 'rxjs/operators';
 import { CalView } from 'src/app/core';
@@ -15,7 +15,8 @@ export class CalColumnComponent {
   private currentDate: Date;
   private currentSegment: CalView;
 
-  constructor(private contextService: ContextService) {
+  constructor(private contextService: ContextService,
+    private dataService: DataService) {
     this.datePipe = new DatePipe('en-US');
   }
 
@@ -24,6 +25,7 @@ export class CalColumnComponent {
     // this.contextService.setCurrentDate(new Date());
     combineLatest([this.contextService.currentDate$, this.contextService.currentSegment$])
       .subscribe(([date, segment]) => {
+        this.dataService.updateItemSegment(date, segment);
         this.currentDate = date;
         this.currentSegment = segment;
         let format;

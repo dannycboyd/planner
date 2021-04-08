@@ -1,13 +1,17 @@
-<div class="item">
-  <h3><span class="item__id">{{item.id}}</span> {{item.title}} <button class="delete_button"
-      (click)="deleteItem()">X</button></h3>
-
-  <span *ngIf="item.start_d">{{item.start_d}}</span>
-  <p>{{item.note}}</p>
-  <div class="item__references" *ngIf="item.references && item.references.length">
-    <div class=" bg-orange" *ngFor="let ref of item.references">
-      {{ref.child_id}}
-      <button class="ref__delete delete_button" (click)="deleteReference(ref)">x</button>
+<div class="item flex-container">
+  <div class="flex-fill">
+    <h3>
+      <span class="item__id">{{item.id}}</span> {{item.title}}
+    </h3>
+    <div class="flex-container flex-wrap item_tags small">
+      <button class="delete_button" (click)="deleteItem()">X</button>
+      <span *ngFor="let tag of item.tags">
+        {{tag.text}}
+      </span>
     </div>
+  </div>
+
+  <div class="item_date">
+    <pretty-date [date]="item.created_at"></pretty-date>
   </div>
 </div>

@@ -1,0 +1,26 @@
+<div class="searchbar">
+  <div class="search-group flex-container" [formGroup]="filterForm">
+    <select id="search-filter-type" formControlName="type">
+      <option disabled selected value="1" hidden>Type</option>
+      <option *ngFor="let option of filterTypes" [value]="option.value">{{option.label}}</option>
+    </select>
+    <input type="text" class="flex-fill" placeholder="Search name, tags, date..." formControlName="filterVal">
+    <button [disabled]="!filterForm.valid" (click)="updateFilter()">Add</button>
+  </div>
+  <div class="item_tags flex-container flex-wrap">
+    <span *ngIf="savedValues.title">
+      title: {{savedValues.title}}
+      <button (click)="removeTitle()">x</button>
+    </span>
+    <span *ngFor="let note of savedValues.note; let i = index">
+      note: {{note}}
+      <button (click)="removeNote(i)">x</button>
+    </span>
+    <span *ngFor="let tag of savedValues.tags; let j = index">
+      tag: {{tag}}
+      <button (click)="removeTag(j)">x</button>
+    </span>
+  </div>
+  <ul>
+  </ul>
+</div>
