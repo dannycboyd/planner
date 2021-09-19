@@ -189,7 +189,7 @@ table.cal_table>tbody>tr.cal_th_7>th {
 }
 
 .column__subsection__header {
-  padding: 2px;
+  padding: .33rem;
   text-align: center;
   /* display: block; */
   border-bottom-left-radius: 5px;
@@ -434,4 +434,9 @@ ul {
 
 .columns.columns-2 {
   column-count: 2;
+}
+
+/** rec-list styles */
+.rec-list-item {
+  padding-left: 15px;
 }

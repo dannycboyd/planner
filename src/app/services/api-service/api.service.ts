@@ -83,18 +83,22 @@ export class ApiService {
   }
 
   getAllItems(params: any): Observable<Array<PlanItem>> {
-    const reqUrl = this.assembleUrl('items/get') + this.assembleQuery(params);
+    const reqUrl = this.assembleUrl('items') + this.assembleQuery(params);
     return this.http.get<Array<PlanItem>>(reqUrl)
   }
 
-  createNewItem(newItem: NewItem, refs: Array<any> = [], tags: Array<string> = []): Observable<PlanItem> {
-    // misnomer, uses upsert api
-    const reqUrl = this.assembleUrl('item');
-    return this.http.post<PlanItem>(reqUrl, { item: newItem, refs, tags });
+  upsertItem(newItem: NewItem, refs: Array<any> = [], tags: Array<any> = []): Observable<PlanItem> {
+    const reqUrl = this.assembleUrl('items');
+    return this.http.post<PlanItem>(reqUrl, { ...newItem, refs, tags });
   }
 
   deleteItem(itemId: Number): Observable<any> {
-    const reqUrl = this.assembleUrl(`item/${itemId}`);
+    const reqUrl = this.assembleUrl(`items/${itemId}`);
     return this.http.delete<any>(reqUrl);
+  }
+
+  testError(): Observable<any> {
+    const reqUrl = this.assembleUrl('items/testError');
+    return this.http.get<any>(reqUrl);
   }
 }

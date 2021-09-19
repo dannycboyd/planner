@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { CalView } from '../core';
+import { PlanItem } from "../models";
 
 @Injectable()
 export class ContextService {

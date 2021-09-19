@@ -6,6 +6,8 @@ export * from './pretty-date/pretty-date.component';
 export * from './journal/journal.component';
 export * from './reminders/reminders.component';
 export * from './inputs/search.component';
+export * from './rec-list/rec-list.component';
+export * from './rec-list/rec-list-item.component';
 
 // * general *
 import { PrettyDateComponent } from './pretty-date/pretty-date.component';
@@ -32,6 +34,10 @@ import { JournalColumnComponent } from './journal/journal.component';
 // * reminders
 import { RemindersComponent } from './reminders/reminders.component';
 
+// * rec list thing
+import { RecListComponent } from './rec-list/rec-list.component';
+import { RecListItemComponent } from './rec-list/rec-list-item.component';
+
 export const Components = [
   PrettyDateComponent,
   TestComponent,
@@ -41,6 +47,8 @@ export const Components = [
   CalTableComponent,
   JournalColumnComponent,
   RemindersComponent,
+  RecListComponent,
+  RecListItemComponent,
   MakeItemComponent,
   SearchComponent
 ]

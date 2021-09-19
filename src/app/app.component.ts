@@ -16,8 +16,8 @@ export class AppComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
-
     this.dataService.getAllItems();
+    this.dataService.testError();
   }
 
   selectItem(item: PlanItem) {

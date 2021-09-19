@@ -11,7 +11,7 @@ export class ItemListitemComponent implements OnInit {
   @Output() referenceDeleted = new EventEmitter();
 
   ngOnInit() {
-    console.log(this.item);
+    // console.log(this.item);
   }
 
   deleteItem() {

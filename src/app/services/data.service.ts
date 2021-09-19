@@ -10,6 +10,7 @@ export class DataService {
   items: BehaviorSubject<Array<PlanItem>>;
   contextItems: BehaviorSubject<Array<PlanItem>>;
   private _items: Array<PlanItem>;
+  private _selectedItem: PlanItem;
   selectedItem: BehaviorSubject<PlanItem>;
   selectedParent: BehaviorSubject<PlanItem>;
   selectedChildren: BehaviorSubject<Array<PlanItem>>;
@@ -20,6 +21,7 @@ export class DataService {
     this.selectedItem = new BehaviorSubject(null);
     this.selectedParent = new BehaviorSubject(null);
     this.selectedChildren = new BehaviorSubject([]);
+    this.drawTree$ = new BehaviorSubject([]);
 
   }
 
@@ -55,13 +57,16 @@ export class DataService {
     }
     this.apiService.getAllItems({ ...baseParams, ...params })
       .subscribe(items => {
+        console.log('items get')
         items = items.map(PlanItem);
         this.updateItemArray(items);
+        this.updateDrawTree(items);
       })
   }
 
   createNewItem(item: PlanItem) {
     const refs = item.references;
+    // const tags = item.tags.map(tag => ({ tag: tag }));
     const tags = item.tags;
 
     const toSave = {
@@ -78,7 +83,7 @@ export class DataService {
     // really truly don't save these, the db will do it
     delete item.created_at;
     delete item.updated_at;
-    this.apiService.createNewItem(toSave, refs, tags)
+    this.apiService.upsertItem(toSave, refs, tags)
       .subscribe(res => {
         const items = this.items.value;
         let index = items.findIndex((i: PlanItem) => i.id && i.id === res.id)
@@ -99,6 +104,9 @@ export class DataService {
     // sorted by creation date to facilitate positional location
     this._items = items.sort((a, b) => a.created_at > b.created_at ? 1 : -1);
     this.items.next(this._items);
+    if (this._selectedItem) {
+      this.selectItem(this._selectedItem.id);
+    }
   }
 
   deleteItem(item: PlanItem) {
@@ -120,9 +128,10 @@ export class DataService {
       }
       let children = this._items.filter(i => item.references.find(j => j.child_id === i.id));
 
+      this._selectedItem = item;
       this.selectedParent.next(parent);
       this.selectedChildren.next(children);
-      this.selectedItem.next(item);
+      this.selectedItem.next(this._selectedItem);
     }
   }
 
@@ -183,4 +192,131 @@ export class DataService {
       this.contextItems.next([]); // this should have the days and the items
     });
   }
+
+
+  // Model controller for the draw tree
+  private drawTree: Array<ItemTree>;
+  drawTree$: BehaviorSubject<Array<ItemTree>>;
+
+  updateDrawTree(items: Array<PlanItem>) {
+    let newDrawTree: Array<ItemTree> = [];
+    items.filter(i => !i.parent_id).forEach(item => {
+      newDrawTree.push({
+        itemId: item.id,
+        item: item,
+        children: [] // start with empty list of children. Ask for it later.
+      });
+    }); // end items.filter
+
+    this.drawTree = newDrawTree;
+    this.drawTree$.next(this.drawTree);
+  }
+
+
+
+  // Adds a node to the drawTree when a parent asks to list its children
+  // This should allow you to open anything, recusively going up the chain (maybe?)
+  addDrawTreeNode(parentId: number) {
+    // dfs through the tree
+    let search = (toFindId: number, node: ItemTree) => {
+      if (node.itemId === toFindId) {
+        // right id
+        return node;
+      } else if (node.children.length < 1) {
+        // wrong id, no children
+        return null;
+      } else {
+        // wrong id, has children
+        for (let i = 0; i < node.children.length; i++) {
+          const result = search(toFindId, node.children[i]);
+          if (result) {
+            return result;
+          }
+          // return node.children.find(c => search(toFindId, c))
+        }
+      }
+    }
+
+    let entryPoint;
+    for (let i = 0; i < this.drawTree.length; i++) { // JS [].find doesn't return right >:|
+      const result = search(parentId, this.drawTree[i]);
+      if (result) {
+        entryPoint = result;
+        break;
+      }
+    }
+
+    if (entryPoint) {
+      // look up parent children
+      let parent = this._items.find(item => item.id === parentId);
+      if (parent) {
+        let treeChildren: Array<ItemTree> = [];
+        parent.references.forEach(reference => {
+          let childItem = this._items.find(item => item.id === reference.child_id)
+          treeChildren.push({
+            itemId: reference.child_id,
+            item: childItem,
+            children: []
+          })
+        });
+        entryPoint.children = treeChildren;
+        this.drawTree$.next(this.drawTree);
+      } else {
+        // something went wrong, that item doesn't exist. Look it up and try again?
+        // for now do nothing, assume it actually doesn't exist for some reason.
+      }
+    }
+  }
+
+  removeDrawTreeNode(idToClose) {
+    // trimming out a node via item ID.
+    // for each child:
+    // * is it me?
+    // * is it my children?
+    // * otherwise return false;
+    let search = (itemId, node) => {
+      if (itemId === node.itemId) {
+        return node;
+      } else {
+        for (let i = 0; i < node.children.length; i++) {
+          const result = search(itemId, node.children[i]);
+          if (result) {
+            return result;
+          }
+        }
+        return null;
+      }
+    }
+
+    // trim the children out of the selected node;
+    let itemToClose: ItemTree;
+    this.drawTree.every(node => {
+      const result = search(idToClose, node);
+      if (result) {
+        itemToClose = result;
+        return false;
+      }
+      return true;
+    });
+
+    if (itemToClose) {
+
+      itemToClose.children = [];
+    } else {
+      // Hmmmm, do nothing? it's fine?
+    }
+  }
+
+  testError() {
+    this.apiService.testError()
+      .subscribe(res => {
+        console.log(res);
+      })
+  }
+}
+
+export interface ItemTree {
+  itemId: number,
+  item: PlanItem,
+  children: Array<ItemTree>
 }

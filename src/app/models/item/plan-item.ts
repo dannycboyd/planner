@@ -33,7 +33,18 @@ function dateFromStringOrDate(date: any): Date {
   return null;
 }
 
+function stripTags(tags: Array<any>): Array<String> {
+  return tags.map(t => {
+    if (t instanceof String) {
+      return t
+    } else {
+      return t.tag
+    }
+  })
+}
+
 // do I get anything from making this a real class?
+// this function is called in too many places
 export function PlanItem(item: any): PlanItem {
   if (item instanceof PlanItem) {
     // maybe this is enough, but
@@ -51,6 +62,7 @@ export function PlanItem(item: any): PlanItem {
     journal: item.journal || false,
     todo: item.todo || false,
     cal: item.cal || false,
+    tags: stripTags(item.tags) || [],
     references: item.references || [],
   }
 }

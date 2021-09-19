@@ -1,0 +1,10 @@
+<div class="rec-list-item">
+  <h4>{{treeNode.item.title || "no title D:"}}</h4>
+  <button (click)="openMe()" *ngIf="!opened">></button>
+  <button (click)="closeMe()" *ngIf="opened">v</button>
+  <ul>
+    <li *ngFor="let node of treeNode.children">
+      <rec-list-item [treeNode]="node"></rec-list-item>
+    </li>
+  </ul>
+</div>

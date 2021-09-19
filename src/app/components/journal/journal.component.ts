@@ -95,7 +95,6 @@ export class JournalColumnComponent implements OnInit {
 
   save_item() {
     let item = { id: this.selected.id || null, ...this.itemForm.value };
-    item = PlanItem(item);
     if (item && !item.title) {
       console.error("Item needs a title to save");
       return;
@@ -103,7 +102,17 @@ export class JournalColumnComponent implements OnInit {
 
     if (item.tags) {
       item.tags = item.tags.split(',').map((t: string) => t.trim());
+    } else {
+      item.tags = [];
     }
+
+    if (item.references) {
+      item.references = item.references.split(',').map((t: string) => ({ origin_id: item.id, child_id: Number(t) }));
+    } else {
+      item.references = [];
+    }
+
+    item = PlanItem(item);
 
     console.log("saveing: ", item);
 

@@ -49,7 +49,7 @@
           <h3>Parent</h3>
           <span class="item_link">{{selectedParent}}</span>
         </div>
-        <div class="children" id="item_children" *ngIf="children.length">
+        <div class="children" id="item_children" *ngIf="children && children.length">
           <h3>Children</h3>
           <ul>
             <li class="item_link" *ngFor="let childTitle of children">
@@ -119,7 +119,7 @@
             <button>x</button>
           </li>
         </ul>
-        <input id="item_ref" type="text" (keyup.enter)="add_ref()">
+        <input id="item_ref" type="text" formControlName="references">
         <label for="item_ref">Reference</label>
 
         <input id="item_tags" type="text" formControlName="tags">
