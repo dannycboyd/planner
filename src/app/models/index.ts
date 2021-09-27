@@ -1,7 +1,2 @@
-export * from './item/plan-item';
-
-import { PlanItem } from './item/plan-item';
-
-// export const Models = [
-//   PlanItem
-// ]
+export * from './item/service-item';
+export * from './item/client-item';

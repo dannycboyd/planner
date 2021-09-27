@@ -2,9 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subject } from "rxjs";
 import { takeUntil, withLatestFrom } from "rxjs/operators";
-import { PlanItem } from "src/app/models";
+import { ClientItem, ServiceItem } from "src/app/models";
 import { DataService } from "src/app/services";
-import { ItemListComponent } from "../item-list/item-list.component";
 
 @Component({
   selector: 'journal-column',
@@ -14,7 +13,7 @@ export class JournalColumnComponent implements OnInit {
 
   private destroy$ = new Subject();
 
-  selected: PlanItem;
+  selected: ClientItem;
   selectedTitle: string = 'Select an Item';
   parentTitle: string;
   children: Array<string>;
@@ -41,7 +40,7 @@ export class JournalColumnComponent implements OnInit {
         this.dataService.selectedChildren
       ),
         takeUntil(this.destroy$))
-      .subscribe(([item, parent, children]: [PlanItem, PlanItem, Array<PlanItem>]) => {
+      .subscribe(([item, parent, children]: [ClientItem, ClientItem, Array<ClientItem>]) => {
         console.log('journal recieved selected item: ', item);
         if (item) {
           this.selected = item;
@@ -72,17 +71,17 @@ export class JournalColumnComponent implements OnInit {
       repeats: [this.selected.repeats],
       note: [this.selected.note],
       parent_id: [this.selected.parent_id],
-      tags: [this.selected.tags?.join() || ''],
+      tags: [this.selected.tags?.map(t => t.tag).join(', ') || ''],
       cal: [this.selected.cal],
       journal: [this.selected.journal],
       todo: [this.selected.todo],
-      references: []
+      references: [this.selected.references?.map(r => r.child_id).join(', ') || '']
     })
     this.editing = true;
   }
 
   new() {
-    this.selected = PlanItem({});
+    this.selected = ClientItem({});
     this.selectedTitle = 'New Item';
     this.edit();
   }
@@ -107,16 +106,16 @@ export class JournalColumnComponent implements OnInit {
     }
 
     if (item.references) {
-      item.references = item.references.split(',').map((t: string) => ({ origin_id: item.id, child_id: Number(t) }));
+      item.references = item.references.split(',').map((t: string) => Number(t.trim()));
     } else {
       item.references = [];
     }
 
-    item = PlanItem(item);
+    item = ServiceItem(item);
 
     console.log("saveing: ", item);
 
-    this.dataService.createNewItem(item as PlanItem);
+    this.dataService.upsertItem(item);
     // update view
     this.selected = { ...item, created_at: new Date() };
     this.selectedTitle = item.title;

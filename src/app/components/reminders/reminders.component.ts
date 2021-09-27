@@ -1,8 +1,7 @@
 import { Component } from "@angular/core";
-import { ɵangular_packages_platform_browser_dynamic_platform_browser_dynamic_a } from "@angular/platform-browser-dynamic";
 import { combineLatest } from "rxjs";
 import { CalView } from "src/app/core";
-import { PlanItem } from "src/app/models";
+import { ClientItem } from "src/app/models";
 import { ContextService, DataService } from "src/app/services";
 
 @Component({
@@ -11,10 +10,10 @@ import { ContextService, DataService } from "src/app/services";
 })
 export class RemindersComponent {
 
-  items: Array<PlanItem> = [];
-  todoItems: Array<PlanItem> = [];
-  doneItems: Array<PlanItem> = [];
-  contextItems: Array<PlanItem> = [];
+  items: Array<ClientItem> = [];
+  todoItems: Array<ClientItem> = [];
+  doneItems: Array<ClientItem> = [];
+  contextItems: Array<ClientItem> = [];
   viewTypes = CalView;
 
   currentDate: Date;
@@ -61,9 +60,8 @@ export class RemindersComponent {
     return this.items.filter(i => i.marked_done);
   }
 
-  toggleItem(item: PlanItem) {
-    console.log('blah');
-    this.dataService.createNewItem({ id: item.id, title: item.title, marked_done: !item.marked_done });
+  toggleItem(item: ClientItem) {
     // only send the required base attributes
+    this.dataService.upsertItem({ id: item.id, title: item.title, marked_done: !item.marked_done });
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from './services';
-import { PlanItem } from './models';
+import { ServiceItem } from './models';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +11,8 @@ export class AppComponent implements OnInit {
   title = 'planner';
   private _selected = "Selected Item";
   selectedTitle = this._selected;
-  selectedItem: PlanItem;
-  items: Array<PlanItem> = [];
+  selectedItem: ServiceItem;
+  items: Array<ServiceItem> = [];
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
     this.dataService.testError();
   }
 
-  selectItem(item: PlanItem) {
+  selectItem(item: ServiceItem) {
     this.selectedTitle = item.title;
     this.selectedItem = item;
   }

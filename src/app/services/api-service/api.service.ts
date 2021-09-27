@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-import { ItemsResponse, PlanItem } from 'src/app/models';
+import { map } from 'rxjs/operators';
+import { ClientItem } from 'src/app/models';
 
 // options: {
 //   headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -82,14 +82,16 @@ export class ApiService {
     return this.http.get(this.assembleUrl(endpoint), { headers: { Accept: 'application/json' } });
   }
 
-  getAllItems(params: any): Observable<Array<PlanItem>> {
+  getAllItems(params: any): Observable<Array<ClientItem>> {
     const reqUrl = this.assembleUrl('items') + this.assembleQuery(params);
-    return this.http.get<Array<PlanItem>>(reqUrl)
+    return this.http.get<Array<ClientItem>>(reqUrl)
+      .pipe(map(items => items.map(ClientItem)));
   }
 
-  upsertItem(newItem: NewItem, refs: Array<any> = [], tags: Array<any> = []): Observable<PlanItem> {
+  upsertItem(newItem: NewItem, refs: Array<any> = [], tags: Array<any> = []): Observable<ClientItem> {
     const reqUrl = this.assembleUrl('items');
-    return this.http.post<PlanItem>(reqUrl, { ...newItem, refs, tags });
+    return this.http.post<ClientItem>(reqUrl, { ...newItem, refs, tags })
+      .pipe(map(ClientItem));
   }
 
   deleteItem(itemId: Number): Observable<any> {

@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { PlanItem } from 'src/app/models';
+import { Component, Input } from '@angular/core';
+import { ClientItem, ServiceItem } from 'src/app/models';
 import { DataService } from 'src/app/services';
 
 @Component({
@@ -7,7 +7,7 @@ import { DataService } from 'src/app/services';
   templateUrl: './item-list.component.html'
 })
 export class ItemListComponent {
-  @Input() items: Array<PlanItem> = [];
+  @Input() items: Array<ClientItem> = [];
 
   constructor(private dataService: DataService) { }
 
@@ -17,7 +17,7 @@ export class ItemListComponent {
     });
   }
 
-  selectItem(item: PlanItem) {
+  selectItem(item: ServiceItem) {
     console.log('send selectItem: ', item);
     this.dataService.selectItem(item.id);
   }

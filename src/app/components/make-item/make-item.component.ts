@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators, ɵNgNoValidate } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { PlanItem } from 'src/app/models';
+import { ServiceItem } from 'src/app/models';
 import { DataService } from 'src/app/services';
 
 @Component({
@@ -37,7 +37,7 @@ export class MakeItemComponent implements OnInit, OnDestroy {
   }
 
   save_item() {
-    const item = PlanItem(this.itemForm.value);
+    const item = ServiceItem(this.itemForm.value);
     if (item && !item.title) {
       console.error("Item needs a title to save");
       return;
@@ -47,7 +47,7 @@ export class MakeItemComponent implements OnInit, OnDestroy {
 
     console.log("saveing: ", item);
 
-    this.dataService.createNewItem(item);
+    this.dataService.upsertItem(item);
     this.showCreate = false;
     this.itemForm.reset();
   }

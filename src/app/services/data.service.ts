@@ -2,18 +2,18 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { CalView } from '../core';
-import { ItemsResponse, PlanItem } from '../models';
+import { ServiceItem, ClientItem } from '../models';
 import { ApiService } from './api-service/api.service';
 
 @Injectable()
 export class DataService {
-  items: BehaviorSubject<Array<PlanItem>>;
-  contextItems: BehaviorSubject<Array<PlanItem>>;
-  private _items: Array<PlanItem>;
-  private _selectedItem: PlanItem;
-  selectedItem: BehaviorSubject<PlanItem>;
-  selectedParent: BehaviorSubject<PlanItem>;
-  selectedChildren: BehaviorSubject<Array<PlanItem>>;
+  items: BehaviorSubject<Array<ClientItem>>;
+  contextItems: BehaviorSubject<Array<ClientItem>>;
+  private _items: Array<ClientItem>;
+  private _selectedItem: ClientItem;
+  selectedItem: BehaviorSubject<ClientItem>;
+  selectedParent: BehaviorSubject<ClientItem>;
+  selectedChildren: BehaviorSubject<Array<ClientItem>>;
 
   constructor(private apiService: ApiService) {
     this.items = new BehaviorSubject([]);
@@ -51,43 +51,25 @@ export class DataService {
     repeats: Option<String>
   }
 */
+
+  // Draw up a diagram for how this flows. I have two models, how will I use them?
   getAllItems(params = {}) {
     let baseParams = {
       with_related: 'true'
     }
     this.apiService.getAllItems({ ...baseParams, ...params })
       .subscribe(items => {
-        console.log('items get')
-        items = items.map(PlanItem);
+        console.log('items get');
         this.updateItemArray(items);
         this.updateDrawTree(items);
       })
   }
 
-  createNewItem(item: PlanItem) {
-    const refs = item.references;
-    // const tags = item.tags.map(tag => ({ tag: tag }));
-    const tags = item.tags;
-
-    const toSave = {
-      ...item,
-      created_at: undefined,
-      updated_at: undefined,
-      // ?. returns undefined if it breaks
-      start_d: item.start_d?.toISOString(),
-      end_d: item.end_d?.toISOString(),
-    }
-    delete item.references;
-    delete item.tags;
-
-    // really truly don't save these, the db will do it
-    delete item.created_at;
-    delete item.updated_at;
-    this.apiService.upsertItem(toSave, refs, tags)
+  upsertItem(item: ServiceItem) {
+    this.apiService.upsertItem(item)
       .subscribe(res => {
         const items = this.items.value;
-        let index = items.findIndex((i: PlanItem) => i.id && i.id === res.id)
-        res = PlanItem(res);
+        let index = items.findIndex((i: ClientItem) => i.id && i.id === res.id)
 
         if (index >= 0) { // this is the reducer part of the redux store, which we might still want to make
           items[index] = res;
@@ -100,7 +82,7 @@ export class DataService {
 
   }
 
-  updateItemArray(items: Array<PlanItem>) {
+  updateItemArray(items: Array<ClientItem>) {
     // sorted by creation date to facilitate positional location
     this._items = items.sort((a, b) => a.created_at > b.created_at ? 1 : -1);
     this.items.next(this._items);
@@ -109,7 +91,7 @@ export class DataService {
     }
   }
 
-  deleteItem(item: PlanItem) {
+  deleteItem(item: ClientItem) {
     this.apiService.deleteItem(item.id)
       .subscribe(res => {
         console.log(res);
@@ -135,7 +117,7 @@ export class DataService {
     }
   }
 
-  itemOnDay(item: PlanItem, check: Date) {
+  itemOnDay(item: ClientItem, check: Date) {
     const start = item.start_d;
     if (!item.start_d) {
       return false;
@@ -198,7 +180,7 @@ export class DataService {
   private drawTree: Array<ItemTree>;
   drawTree$: BehaviorSubject<Array<ItemTree>>;
 
-  updateDrawTree(items: Array<PlanItem>) {
+  updateDrawTree(items: Array<ClientItem>) {
     let newDrawTree: Array<ItemTree> = [];
     items.filter(i => !i.parent_id).forEach(item => {
       newDrawTree.push({
@@ -317,6 +299,6 @@ export class DataService {
 
 export interface ItemTree {
   itemId: number,
-  item: PlanItem,
+  item: ClientItem,
   children: Array<ItemTree>
 }

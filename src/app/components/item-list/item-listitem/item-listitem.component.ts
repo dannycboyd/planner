@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { PlanItem } from 'src/app/models';
+import { ClientItem } from 'src/app/models';
 
 @Component({
   selector: 'item-li', // change this, it's a flex list now
   templateUrl: './item-listitem.component.html'
 })
 export class ItemListitemComponent implements OnInit {
-  @Input() item: PlanItem;
+  @Input() item: ClientItem;
   @Output() itemDeleted = new EventEmitter();
   @Output() referenceDeleted = new EventEmitter();
 

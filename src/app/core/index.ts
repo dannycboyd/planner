@@ -1,5 +1,6 @@
 export * from './interfaces/enums';
 export * from './transforms/date.transform';
+export * from './utils';
 
 import { DateTransformer } from './transforms/date.transform';
 
