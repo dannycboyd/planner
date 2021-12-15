@@ -1,25 +1,34 @@
-import { AfterViewInit, Component, Input } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Subject } from "rxjs";
+import { filter, takeUntil } from "rxjs/operators";
+import { ClientItem } from "src/app/models";
 import { DataService, ItemTree } from "src/app/services";
 
 @Component({
   selector: 'rec-list-item',
   templateUrl: './rec-list-item.component.html'
 })
-export class RecListItemComponent implements AfterViewInit {
+export class RecListItemComponent implements OnInit, OnDestroy {
   @Input('treeNode') treeNode: ItemTree;
   opened: boolean = false;
-  // how does the draw message get displayed?
-
-  // i guess we see if the updates propagate right? hhhh
+  highlighted: boolean = false;
+  destroy$ = new Subject();
 
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
     // console.log();
+    this.dataService.selectedItem.pipe(filter((i: ClientItem) => !!(i && i.id)), takeUntil(this.destroy$)).subscribe(item => {
+      this.highlighted = item.id === this.treeNode.itemId;
+    })
   }
 
-  ngAfterViewInit() {
-    console.log(this.treeNode);
+  ngOnDestroy() {
+    this.destroy$.next();
+  }
+
+  selectMe() {
+    this.dataService.selectItem(this.treeNode.itemId);
   }
 
   openMe() {

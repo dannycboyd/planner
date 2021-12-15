@@ -1,5 +1,6 @@
 <div class="rec-list-item">
-  <h4>{{treeNode.item.title || "no title D:"}}</h4>
+  <h4 [ngClass]="{'rec-list-highlighted': highlighted}" (click)="selectMe()">{{treeNode.item.title || "no title D:"}}
+  </h4>
   <button (click)="openMe()" *ngIf="!opened">></button>
   <button (click)="closeMe()" *ngIf="opened">v</button>
   <ul>

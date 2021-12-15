@@ -205,9 +205,9 @@ table.cal_table>tbody>tr.cal_th_7>th {
   padding: 7px;
 }
 
-.reminders__reminder {
+/* .reminders__reminder {
 
-}
+} */
 
 .reminders__subreminders {
   margin-left: 1rem;
@@ -400,9 +400,9 @@ ul {
   text-decoration: underline;
 }
 
-.item_references {
-  /* padding-top: 1rem; */
-}
+/* .item_references {
+  padding-top: 1rem;
+} */
 
 .item_references>div {
   padding-top: 1rem;
@@ -439,4 +439,8 @@ ul {
 /** rec-list styles */
 .rec-list-item {
   padding-left: 15px;
+}
+
+.rec-list-highlighted {
+  background: #fcb603;
 }

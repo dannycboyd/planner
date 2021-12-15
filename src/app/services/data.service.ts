@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { notStrictEqual } from 'assert';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { CalView } from '../core';
@@ -194,98 +195,213 @@ export class DataService {
     this.drawTree$.next(this.drawTree);
   }
 
+  private getChildren(parentId: number) {
+    let parent = this._items.find(item => item.id === parentId);
+    if (parent) {
+      let treeChildren: Array<ItemTree> = [];
+      parent.references.forEach(reference => {
+        let childItem = this._items.find(item => item.id === reference.child_id)
+        treeChildren.push({
+          itemId: reference.child_id,
+          item: childItem,
+          children: []
+        })
+      });
+      return treeChildren;
+    } else {
+      // something went wrong, that item doesn't exist. Look it up and try again?
+      // for now do nothing, assume it actually doesn't exist for some reason.
+    }
+  }
 
-
-  // Adds a node to the drawTree when a parent asks to list its children
+  /**
+   * Adds a node to the drawTree when a parent asks to list its children
+   */
   // This should allow you to open anything, recusively going up the chain (maybe?)
   addDrawTreeNode(parentId: number) {
-    // dfs through the tree
-    let search = (toFindId: number, node: ItemTree) => {
-      if (node.itemId === toFindId) {
-        // right id
-        return node;
-      } else if (node.children.length < 1) {
-        // wrong id, no children
+    // depth-first search through the drawTree
+    let search = (nodes: ItemTree[]) => {
+      for (let i = 0; i < nodes.length; i++) {
+        if (nodes[i].itemId === parentId) {
+          return nodes[i];
+        } else {
+          const result = search(nodes[i].children);
+          if (result) { return result; }
+        }
+      }
+      return null; // nothing on this branch, return
+    }
+    const entryPoint = search(this.drawTree);
+    if (entryPoint) {
+      // look up parent children
+
+      entryPoint.children = this.getChildren(parentId);
+      this.drawTree$.next(this.drawTree);
+    }
+  }
+
+  /**
+   * Empties out the `children` array of the corresponding node in the drawTree.
+   * @param idToClose the item ID of the drawtree node that is being closed.
+   */
+  removeDrawTreeNode(idToClose: number) {
+    // depth-first search to find the node to close
+    let search = (nodes: ItemTree[]) => {
+      for (let i = 0; i < nodes.length; i++) {
+        if (nodes[i].itemId === idToClose) {
+          return nodes[i];
+        } else {
+          const result = search(nodes[i].children);
+          if (result) { return result; }
+        }
+      }
+      return null; // nothing on this branch, return
+    }
+
+    const itemToClose = search(this.drawTree);
+    if (itemToClose) {
+      itemToClose.children = [];
+    } else {
+      // Hmmmm, do nothing? it's fine?
+    }
+  }
+
+  /**
+   * indentSelected searches for the current item (`this._selectedItem`) and tries to set its immediate preceding sibling to its parent.
+   * It will do nothing if there is no sibling immediately before it in its parent's `children` array.
+   */
+  // Can I trim this to use only one loop? 
+  indentSelected() {
+    const selectedId = this._selectedItem ? this._selectedItem.id : null;
+    if (!selectedId) {
+      return;
+    }
+
+    // use a DFS to find the neighbor of the selected item
+    let search = (toIndentId: number, nodes: ItemTree[]) => {
+      let previous;
+      if (nodes.length < 2) {
         return null;
-      } else {
-        // wrong id, has children
-        for (let i = 0; i < node.children.length; i++) {
-          const result = search(toFindId, node.children[i]);
-          if (result) {
-            return result;
+      }
+
+      for (let i = 0; i < nodes.length; i++) {
+        if (nodes[i].itemId === toIndentId) {
+          if (previous) {
+            return previous; // found the neighbor, that's it
+          } else {
+            return null; // nothing to indent this under
           }
-          // return node.children.find(c => search(toFindId, c))
+        } else {
+          previous = nodes[i];
+        }
+      }
+
+      for (let i = 0; i < nodes.length; i++) {
+        previous = null;
+        let result = search(toIndentId, nodes[i].children);
+        if (result) {
+          return result;
         }
       }
     }
 
-    let entryPoint;
-    for (let i = 0; i < this.drawTree.length; i++) { // JS [].find doesn't return right >:|
-      const result = search(parentId, this.drawTree[i]);
-      if (result) {
-        entryPoint = result;
-        break;
+    let neighbor = search(selectedId, this.drawTree);
+    console.log(neighbor);
+  }
+
+  /**
+   * unindentSelected searches for the current item (`this._selectedItem`) and tries to change its grandparent to its parent.
+   * If it is in the root (`this.drawTree`) then nothing will happen.
+   */
+  unindentSelected() {
+    console.error("unindentSelected: this keybind is unimplemented!");
+  }
+
+  /**
+   * Swap two elements of an array. Used in `reorderUp()` and `reorderDown()`
+   * @param nodes `Array<any>` the source array to modify
+   * @param index the starting index to swap
+   * @param difference the offset of the index with which to swap
+   */
+  private swapNodes(nodes: Array<any>, index: number, difference: number) {
+    const a = nodes[index];
+    nodes[index] = nodes[index + difference];
+    nodes[index + difference] = a;
+  }
+
+  /**
+   * Searches for the current item (`this._selectedItem`) and tries to swap it with the item above it without changing parents in the tree.
+   * Nothing will happen if there's no item preceding it in the parent node's array of children.
+   * See also `reorderDown()`
+   */
+  // the if (index && index > 0) parts need to call out to the api service to do something to reorder. 
+  // currently no way to order items in the service. There should be a good way to do this? Something with semi-random numbers that you can swap around for ordering.
+  reorderUp() {
+    let searchId = this._selectedItem ? this._selectedItem.id : null;
+    if (!searchId) {
+      return;
+    }
+
+    let findIndex = (node: ItemTree) => node.itemId === searchId;
+
+    let search = (nodes: ItemTree[]) => {
+      const index = nodes.findIndex(findIndex);
+      if (index !== -1) {
+        return [nodes, index];
+      } else {
+        for (let i = 0; i < nodes.length; i++) {
+          const result = search(nodes[i].children);
+          if (result) { return result }
+        }
+        return null;
       }
     }
 
-    if (entryPoint) {
-      // look up parent children
-      let parent = this._items.find(item => item.id === parentId);
-      if (parent) {
-        let treeChildren: Array<ItemTree> = [];
-        parent.references.forEach(reference => {
-          let childItem = this._items.find(item => item.id === reference.child_id)
-          treeChildren.push({
-            itemId: reference.child_id,
-            item: childItem,
-            children: []
-          })
-        });
-        entryPoint.children = treeChildren;
-        this.drawTree$.next(this.drawTree);
-      } else {
-        // something went wrong, that item doesn't exist. Look it up and try again?
-        // for now do nothing, assume it actually doesn't exist for some reason.
+    let result = search(this.drawTree);
+    if (result) {
+      const [nodes, index] = result;
+      console.error("Unimplemented reorder API call goes here");
+      if (index > 0) {
+        this.swapNodes(nodes, index, -1);
       }
     }
   }
 
-  removeDrawTreeNode(idToClose) {
-    // trimming out a node via item ID.
-    // for each child:
-    // * is it me?
-    // * is it my children?
-    // * otherwise return false;
-    let search = (itemId, node) => {
-      if (itemId === node.itemId) {
-        return node;
+  /**
+   * reorderDown() searches for the current item (this._selectedItem) and tries to swap it witht he item below it without changing parents in the tree. See also reorderUp()
+   * @returns null
+   */
+  reorderDown() {
+    let searchId = this._selectedItem ? this._selectedItem.id : null;
+    if (!searchId) {
+      return;
+    }
+
+    const findIndex = (node: ItemTree) => node.itemId === searchId;
+
+    let search = (nodes: ItemTree[]) => {
+      const index = nodes.findIndex(findIndex);
+      if (index !== -1) {
+        return [nodes, index];
       } else {
-        for (let i = 0; i < node.children.length; i++) {
-          const result = search(itemId, node.children[i]);
-          if (result) {
-            return result;
-          }
+        for (let i = 0; i < nodes.length; i++) {
+          const result = search(nodes[i].children);
+          if (result) { return result }
         }
         return null;
       }
     }
 
-    // trim the children out of the selected node;
-    let itemToClose: ItemTree;
-    this.drawTree.every(node => {
-      const result = search(idToClose, node);
-      if (result) {
-        itemToClose = result;
-        return false;
+    let result: [ItemTree[], number] = search(this.drawTree);
+    if (result) {
+      const [nodes, index] = result;
+      // This should be a side-effect of making an API call:
+      // this.apiService.upsert([ { id: a, order: orderA }, { id: b, order: orderB }])
+      console.error("Unimplemented reorder API call goes here");
+      if (index < nodes.length) {
+        this.swapNodes(nodes, index, 1);
       }
-      return true;
-    });
 
-    if (itemToClose) {
-
-      itemToClose.children = [];
-    } else {
-      // Hmmmm, do nothing? it's fine?
     }
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from './services';
+import { DataService, HotkeysService } from './services';
 import { ServiceItem } from './models';
 
 @Component({
